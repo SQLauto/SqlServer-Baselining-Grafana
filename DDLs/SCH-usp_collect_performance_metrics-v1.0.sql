@@ -429,7 +429,6 @@ begin
 			or
 			( [object_name] like (@object_name+':General Statistics%') and [counter_name] like 'Logouts/sec%' )
 		  );
-
 		WITH Time_Samples AS (
 			SELECT t1.collection_time as time1, t2.collection_time as time2,
 					t1.object_name, t1.counter_name, t1.instance_name,
@@ -483,12 +482,12 @@ end
 GO
 
 set nocount on;
-exec dbo.[usp_collect_performance_metrics] @metrics = 'dm_os_sys_memory';
-exec dbo.[usp_collect_performance_metrics] @metrics = 'dm_os_process_memory';
-exec dbo.[usp_collect_performance_metrics] @metrics = 'dm_os_performance_counters';
-exec dbo.[usp_collect_performance_metrics] @metrics = 'dm_os_performance_counters_sampling';
-exec dbo.[usp_collect_performance_metrics] @metrics = 'dm_os_ring_buffers';
-exec dbo.[usp_collect_performance_metrics] @metrics = 'dm_os_memory_clerks';
-exec dbo.[usp_collect_performance_metrics] @metrics = 'dm_os_performance_counters_deprecated_features';
+exec dbo.[usp_collect_performance_metrics_v1] @metrics = 'dm_os_sys_memory';
+exec dbo.[usp_collect_performance_metrics_v1] @metrics = 'dm_os_process_memory';
+exec dbo.[usp_collect_performance_metrics_v1] @metrics = 'dm_os_performance_counters';
+exec dbo.[usp_collect_performance_metrics_v1] @metrics = 'dm_os_performance_counters_sampling';
+exec dbo.[usp_collect_performance_metrics_v1] @metrics = 'dm_os_ring_buffers';
+exec dbo.[usp_collect_performance_metrics_v1] @metrics = 'dm_os_memory_clerks';
+exec dbo.[usp_collect_performance_metrics_v1] @metrics = 'dm_os_performance_counters_deprecated_features';
 --exec msdb..sp_start_job @job_name = '(dba) Collect Performance Metrics - 2';
 go

@@ -1,4 +1,34 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_INVENTORY",
+      "label": "Inventory",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "mssql",
+      "pluginName": "Microsoft SQL Server"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.1.4"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "mssql",
+      "name": "Microsoft SQL Server",
+      "version": "1.0.0"
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -18,13 +48,13 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 10,
-  "iteration": 1600314739829,
+  "id": null,
+  "iteration": 1600368621369,
   "links": [],
   "panels": [
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -38,7 +68,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "Unused physical memory (not page file).\nShould be greater than 2 GB",
           "fieldConfig": {
             "defaults": {
@@ -134,7 +164,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "Pages Input/Sec\n-- Should be less than 10\n-- Reads from hard disk per second to resolve\nhard pages.\n\nPages/Sec\nOften referenced in older documentation.\nUseful only in combination with Pages\nInput/Sec, %Usage, %Usage Peak.",
           "fieldConfig": {
             "defaults": {
@@ -229,7 +259,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "Paging File: %Usage\n-- Should be less than 70%\n-- Amount of Page File in use, which indicates\nthe server is substituting disk space for\nmemory.\n\nPaging File: %Usage Peak\n-- Should be less than 70%\n-- Highest %Usage metric since the last time\nthe server was restarted.",
           "fieldConfig": {
             "defaults": {
@@ -325,7 +355,7 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -339,7 +369,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "< 80%. \nPercentage of processor time spent on SQL\nServer process threads.You may also wish\nto investigate other Process (sqlservr) such\nas Private Bytes, Virtual Bytes, Working Set,\netc to get a fuller understanding of how\nSQL Server allocates certain segments of\nmemory. Usually, these auxiliary counters\nprovide contextual information and are not\nnecessary for troubleshooting.",
           "fieldConfig": {
             "defaults": {
@@ -456,7 +486,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "Number of threads waiting for CPU cycles,\nwhere < 12 per CPU is good/fair, < 8 is better,\n< 4 is best.",
           "fieldConfig": {
             "defaults": {
@@ -552,7 +582,7 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -566,7 +596,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -666,7 +696,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -767,7 +797,7 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -781,7 +811,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -876,7 +906,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -971,7 +1001,7 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -985,7 +1015,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1086,7 +1116,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1187,7 +1217,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -1287,7 +1317,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -1387,7 +1417,7 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1401,7 +1431,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1501,7 +1531,7 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1515,7 +1545,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "Monitor these counters to determine general benchmark levels set by your user databases and for tempdb.",
           "fieldConfig": {
             "defaults": {
@@ -1624,7 +1654,7 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1638,7 +1668,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -1738,7 +1768,7 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1752,7 +1782,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -1851,7 +1881,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -1951,7 +1981,7 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1965,7 +1995,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -2065,7 +2095,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -2166,7 +2196,7 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2180,7 +2210,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2280,7 +2310,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2380,7 +2410,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2481,7 +2511,7 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2495,7 +2525,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -2590,7 +2620,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -2685,7 +2715,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -2780,7 +2810,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -2876,7 +2906,7 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2890,7 +2920,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -2989,7 +3019,7 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3003,10 +3033,11 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "fieldConfig": {
             "defaults": {
-              "custom": {}
+              "custom": {},
+              "unit": "ms"
             },
             "overrides": []
           },
@@ -3017,204 +3048,6 @@
             "w": 24,
             "x": 0,
             "y": 14
-          },
-          "hiddenSeries": false,
-          "id": 79,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "sideWidth": 400,
-            "sort": "avg",
-            "sortDesc": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "percentage": false,
-          "pluginVersion": "7.1.4",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "",
-              "format": "time_series",
-              "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\r\nSET QUOTED_IDENTIFIER OFF\r\nDECLARE @sql varchar(max) = \"\r\ndeclare @p_start_time datetime2;\r\ndeclare @p_end_time datetime2;\r\ndeclare @object_name varchar(255);\r\nset @object_name = (case when @@SERVICENAME = 'MSSQLSERVER' then 'SQLServer' else 'MSSQL$'+@@SERVICENAME end);\r\n\r\nselect @p_start_time = st.local_time, @p_end_time = et.local_time \r\nfrom dbo.utc2local($__timeFrom()) as st join dbo.utc2local($__timeTo()) et on 1 = 1;\r\n\r\nSELECT l2u.utc_time as time, counter_name as metric, cntr_value as [value]\r\nFROM (\t\r\n\t\tselect collection_time, counter_name, cntr_value\r\n\t\tfrom dbo.dm_os_performance_counters as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.object_name = (@object_name+':Latches')\r\n\t\t--\r\n\t\tunion all\r\n\t\t--\r\n\t\tselect collection_time, counter_name, cntr_value\r\n\t\tfrom dbo.dm_os_performance_counters_aggregated as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.object_name = (@object_name+':Latches')\r\n) AS pc\r\ncross apply dbo.local2utc(collection_time) as l2u\r\norder by collection_time;\r\n\"\r\nSET QUOTED_IDENTIFIER ON\r\nIF ('$server' = SERVERPROPERTY('ServerName'))\r\nBEGIN\r\n  EXEC (@sql);\r\nEND;\r\nELSE\r\nBEGIN\r\n  EXEC (@sql) AT [$server];\r\nEND;",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "SQLServer:Latches",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:775",
-              "format": "short",
-              "label": null,
-              "logBase": 2,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:776",
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 24,
-            "x": 0,
-            "y": 22
-          },
-          "hiddenSeries": false,
-          "id": 82,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "sideWidth": 400,
-            "sort": "avg",
-            "sortDesc": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "percentage": false,
-          "pluginVersion": "7.1.4",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "",
-              "format": "time_series",
-              "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\r\nSET QUOTED_IDENTIFIER OFF\r\nDECLARE @sql varchar(max) = \"\r\ndeclare @p_start_time datetime2;\r\ndeclare @p_end_time datetime2;\r\ndeclare @object_name varchar(255);\r\nset @object_name = (case when @@SERVICENAME = 'MSSQLSERVER' then 'SQLServer' else 'MSSQL$'+@@SERVICENAME end);\r\n\r\nselect @p_start_time = st.local_time, @p_end_time = et.local_time \r\nfrom dbo.utc2local($__timeFrom()) as st join dbo.utc2local($__timeTo()) et on 1 = 1;\r\n\r\nSELECT l2u.utc_time as time, counter_name as metric, cntr_value as [value]\r\nFROM (\t\r\n\t\tselect collection_time, counter_name, cntr_value\r\n\t\tfrom dbo.dm_os_performance_counters as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.object_name = (@object_name+':Locks')\r\n\t\t\tand pc.counter_name = 'Lock Waits/sec'\r\n\t\t--\r\n\t\tunion all\r\n\t\t--\r\n\t\tselect collection_time, counter_name, cntr_value\r\n\t\tfrom dbo.dm_os_performance_counters as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.object_name = (@object_name+':Locks')\r\n\t\t\tand pc.counter_name = 'Lock Waits/sec'\r\n) AS pc\r\ncross apply dbo.local2utc(collection_time) as l2u\r\norder by collection_time;\r\n\"\r\nSET QUOTED_IDENTIFIER ON\r\nIF ('$server' = SERVERPROPERTY('ServerName'))\r\nBEGIN\r\n  EXEC (@sql);\r\nEND;\r\nELSE\r\nBEGIN\r\n  EXEC (@sql) AT [$server];\r\nEND;",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "SQLServer:Locks -> Lock Waits/sec",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:775",
-              "format": "short",
-              "label": null,
-              "logBase": 2,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:776",
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 24,
-            "x": 0,
-            "y": 30
           },
           "hiddenSeries": false,
           "id": 80,
@@ -3248,7 +3081,7 @@
             {
               "alias": "",
               "format": "time_series",
-              "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\r\nSET QUOTED_IDENTIFIER OFF\r\nDECLARE @sql varchar(max) = \"\r\ndeclare @p_start_time datetime2;\r\ndeclare @p_end_time datetime2;\r\ndeclare @object_name varchar(255);\r\nset @object_name = (case when @@SERVICENAME = 'MSSQLSERVER' then 'SQLServer' else 'MSSQL$'+@@SERVICENAME end);\r\n\r\nselect @p_start_time = st.local_time, @p_end_time = et.local_time \r\nfrom dbo.utc2local($__timeFrom()) as st join dbo.utc2local($__timeTo()) et on 1 = 1;\r\n\r\nSELECT l2u.utc_time as time, instance_name as metric, cntr_value as [value]\r\nFROM (\t\r\n\t\tselect collection_time, instance_name, cntr_value\r\n\t\tfrom dbo.dm_os_performance_counters as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.object_name = (@object_name+':Locks')\r\n\t\t\tand pc.counter_name = 'Average Wait Time (ms)'\r\n\t\t--\r\n\t\tunion all\r\n\t\t--\r\n\t\tselect collection_time, instance_name, cntr_value\r\n\t\tfrom dbo.dm_os_performance_counters_aggregated as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.object_name = (@object_name+':Locks')\r\n\t\t\tand pc.counter_name = 'Average Wait Time (ms)'\r\n) AS pc\r\ncross apply dbo.local2utc(collection_time) as l2u\r\norder by collection_time;\r\n\"\r\nSET QUOTED_IDENTIFIER ON\r\nIF ('$server' = SERVERPROPERTY('ServerName'))\r\nBEGIN\r\n  EXEC (@sql);\r\nEND;\r\nELSE\r\nBEGIN\r\n  EXEC (@sql) AT [$server];\r\nEND;",
+              "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\r\nSET QUOTED_IDENTIFIER OFF\r\nDECLARE @sql varchar(max) = \"\r\ndeclare @p_start_time datetime2;\r\ndeclare @p_end_time datetime2;\r\ndeclare @object_name varchar(255);\r\nset @object_name = (case when @@SERVICENAME = 'MSSQLSERVER' then 'SQLServer' else 'MSSQL$'+@@SERVICENAME end);\r\n\r\nselect @p_start_time = st.local_time, @p_end_time = et.local_time \r\nfrom dbo.utc2local($__timeFrom()) as st join dbo.utc2local($__timeTo()) et on 1 = 1;\r\n\r\nSELECT\tl2u.utc_time as time\r\n\t\t,[metric] = instance_name\r\n\t\t,[value] = cntr_value\r\nFROM (\t\r\n\t\tselect collection_time, cntr_value, instance_name\r\n\t\tfrom dbo.dm_os_performance_counters as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.[object_name] = cast(@object_name+':Locks' as nvarchar(256)) and pc.counter_name = 'Lock Wait Time (ms)'\r\n\t\t--\r\n\t\tunion all\r\n\t\t--\r\n\t\tselect collection_time, cntr_value, instance_name\r\n\t\tfrom dbo.dm_os_performance_counters_aggregated as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.[object_name] = cast(@object_name+':Locks' as nvarchar(256)) and pc.counter_name = 'Lock Wait Time (ms)'\r\n) AS pc\r\ncross apply dbo.local2utc(collection_time) as l2u\r\norder by collection_time;\r\n\"\r\nSET QUOTED_IDENTIFIER ON\r\nIF ('$server' = SERVERPROPERTY('ServerName'))\r\nBEGIN\r\n  EXEC (@sql);\r\nEND;\r\nELSE\r\nBEGIN\r\n  EXEC (@sql) AT [$server];\r\nEND;",
               "refId": "A"
             }
           ],
@@ -3256,7 +3089,208 @@
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "SQLServer:Locks - Average Wait Time (ms)",
+          "title": "Lock Wait Time (ms)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:775",
+              "format": "ms",
+              "label": null,
+              "logBase": 2,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:776",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_INVENTORY}",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 22
+          },
+          "hiddenSeries": false,
+          "id": 79,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sideWidth": 400,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\r\nSET QUOTED_IDENTIFIER OFF\r\nDECLARE @sql varchar(max) = \"\r\ndeclare @p_start_time datetime2;\r\ndeclare @p_end_time datetime2;\r\ndeclare @object_name varchar(255);\r\nset @object_name = (case when @@SERVICENAME = 'MSSQLSERVER' then 'SQLServer' else 'MSSQL$'+@@SERVICENAME end);\r\n\r\nselect @p_start_time = st.local_time, @p_end_time = et.local_time \r\nfrom dbo.utc2local($__timeFrom()) as st join dbo.utc2local($__timeTo()) et on 1 = 1;\r\n\r\nSELECT\tl2u.utc_time as time\r\n\t\t,[metric] = instance_name\r\n\t\t,[value] = cntr_value\r\nFROM (\t\r\n\t\tselect collection_time, cntr_value, instance_name\r\n\t\tfrom dbo.dm_os_performance_counters as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.[object_name] = cast(@object_name+':Locks' as nvarchar(256)) and pc.counter_name = 'Average Wait Time (ms)'\r\n\t\t--\r\n\t\tunion all\r\n\t\t--\r\n\t\tselect collection_time, cntr_value, instance_name\r\n\t\tfrom dbo.dm_os_performance_counters_aggregated as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.[object_name] = cast(@object_name+':Locks' as nvarchar(256)) and pc.counter_name = 'Average Wait Time (ms)'\r\n) AS pc\r\ncross apply dbo.local2utc(collection_time) as l2u\r\norder by collection_time;\r\n\"\r\nSET QUOTED_IDENTIFIER ON\r\nIF ('$server' = SERVERPROPERTY('ServerName'))\r\nBEGIN\r\n  EXEC (@sql);\r\nEND;\r\nELSE\r\nBEGIN\r\n  EXEC (@sql) AT [$server];\r\nEND;",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Average Wait Time (ms)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:775",
+              "format": "ms",
+              "label": null,
+              "logBase": 2,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:776",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_INVENTORY}",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 30
+          },
+          "hiddenSeries": false,
+          "id": 82,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sideWidth": 400,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\r\nSET QUOTED_IDENTIFIER OFF\r\nDECLARE @sql varchar(max) = \"\r\ndeclare @p_start_time datetime2;\r\ndeclare @p_end_time datetime2;\r\ndeclare @object_name varchar(255);\r\nset @object_name = (case when @@SERVICENAME = 'MSSQLSERVER' then 'SQLServer' else 'MSSQL$'+@@SERVICENAME end);\r\n\r\nselect @p_start_time = st.local_time, @p_end_time = et.local_time \r\nfrom dbo.utc2local($__timeFrom()) as st join dbo.utc2local($__timeTo()) et on 1 = 1;\r\n\r\nSELECT l2u.utc_time as time\r\n\t   ,metric = instance_name\r\n\t   ,cntr_value as [value]\r\nFROM (\t\r\n\t\tselect collection_time, counter_name, cntr_value, instance_name\r\n\t\tfrom dbo.dm_os_performance_counters as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand \r\n\t\t\t  (\tpc.object_name = (@object_name+':Locks') and pc.counter_name = 'Lock Waits/sec' )\r\n\t\t--\r\n\t\tunion all\r\n\t\t--\r\n\t\tselect collection_time, counter_name, cntr_value, instance_name\r\n\t\tfrom dbo.dm_os_performance_counters_aggregated as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand \r\n\t\t\t  (\tpc.object_name = (@object_name+':Locks') and pc.counter_name = 'Lock Waits/sec' )\r\n) AS pc\r\ncross apply dbo.local2utc(collection_time) as l2u\r\norder by collection_time;\r\n\"\r\nSET QUOTED_IDENTIFIER ON\r\nIF ('$server' = SERVERPROPERTY('ServerName'))\r\nBEGIN\r\n  EXEC (@sql);\r\nEND;\r\nELSE\r\nBEGIN\r\n  EXEC (@sql) AT [$server];\r\nEND;",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Waits/sec",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -3300,7 +3334,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -3316,7 +3350,7 @@
             "y": 38
           },
           "hiddenSeries": false,
-          "id": 81,
+          "id": 94,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -3347,7 +3381,7 @@
             {
               "alias": "",
               "format": "time_series",
-              "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\r\nSET QUOTED_IDENTIFIER OFF\r\nDECLARE @sql varchar(max) = \"\r\ndeclare @p_start_time datetime2;\r\ndeclare @p_end_time datetime2;\r\ndeclare @object_name varchar(255);\r\nset @object_name = (case when @@SERVICENAME = 'MSSQLSERVER' then 'SQLServer' else 'MSSQL$'+@@SERVICENAME end);\r\n\r\nselect @p_start_time = st.local_time, @p_end_time = et.local_time \r\nfrom dbo.utc2local($__timeFrom()) as st join dbo.utc2local($__timeTo()) et on 1 = 1;\r\n\r\nSELECT l2u.utc_time as time, instance_name as metric, cntr_value as [value]\r\nFROM (\t\r\n\t\tselect collection_time, instance_name, cntr_value\r\n\t\tfrom dbo.dm_os_performance_counters as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.object_name = (@object_name+':Locks')\r\n\t\t\tand pc.counter_name = 'Lock Wait Time (ms)'\r\n\t\t--\r\n\t\tunion all\r\n\t\t--\r\n\t\tselect collection_time, instance_name, cntr_value\r\n\t\tfrom dbo.dm_os_performance_counters_aggregated as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.object_name = (@object_name+':Locks')\r\n\t\t\tand pc.counter_name = 'Lock Wait Time (ms)'\r\n) AS pc\r\ncross apply dbo.local2utc(collection_time) as l2u\r\norder by collection_time;\r\n\"\r\nSET QUOTED_IDENTIFIER ON\r\nIF ('$server' = SERVERPROPERTY('ServerName'))\r\nBEGIN\r\n  EXEC (@sql);\r\nEND;\r\nELSE\r\nBEGIN\r\n  EXEC (@sql) AT [$server];\r\nEND;",
+              "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\r\nSET QUOTED_IDENTIFIER OFF\r\nDECLARE @sql varchar(max) = \"\r\ndeclare @p_start_time datetime2;\r\ndeclare @p_end_time datetime2;\r\ndeclare @object_name varchar(255);\r\nset @object_name = (case when @@SERVICENAME = 'MSSQLSERVER' then 'SQLServer' else 'MSSQL$'+@@SERVICENAME end);\r\n\r\nselect @p_start_time = st.local_time, @p_end_time = et.local_time \r\nfrom dbo.utc2local($__timeFrom()) as st join dbo.utc2local($__timeTo()) et on 1 = 1;\r\n\r\nSELECT\tl2u.utc_time as time\r\n\t\t,[metric] = instance_name\r\n\t\t,[value] = cntr_value\r\nFROM (\t\r\n\t\tselect collection_time, cntr_value, instance_name\r\n\t\tfrom dbo.dm_os_performance_counters as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.[object_name] = cast(@object_name+':Locks' as nvarchar(256)) and pc.counter_name = 'Number of Deadlocks/sec'\r\n\t\t--\r\n\t\tunion all\r\n\t\t--\r\n\t\tselect collection_time, cntr_value, instance_name\r\n\t\tfrom dbo.dm_os_performance_counters_aggregated as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.[object_name] = cast(@object_name+':Locks' as nvarchar(256)) and pc.counter_name = 'Number of Deadlocks/sec'\r\n) AS pc\r\ncross apply dbo.local2utc(collection_time) as l2u\r\norder by collection_time;\r\n\"\r\nSET QUOTED_IDENTIFIER ON\r\nIF ('$server' = SERVERPROPERTY('ServerName'))\r\nBEGIN\r\n  EXEC (@sql);\r\nEND;\r\nELSE\r\nBEGIN\r\n  EXEC (@sql) AT [$server];\r\nEND;",
               "refId": "A"
             }
           ],
@@ -3355,7 +3389,7 @@
           "timeFrom": null,
           "timeRegions": [],
           "timeShift": null,
-          "title": "SQLServer:Locks - Lock Wait Time (ms)",
+          "title": "Number of Deadlocks/sec",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -3395,7 +3429,323 @@
           }
         }
       ],
-      "title": "MSSQL Users & Locks Performance Counters",
+      "title": "MSSQL Locks Performance Counters",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": "${DS_INVENTORY}",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      "id": 104,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_INVENTORY}",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 15
+          },
+          "hiddenSeries": false,
+          "id": 102,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": false,
+            "sideWidth": 400,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\r\nSET QUOTED_IDENTIFIER OFF\r\nDECLARE @sql varchar(max) = \"\r\ndeclare @p_start_time datetime2;\r\ndeclare @p_end_time datetime2;\r\ndeclare @object_name varchar(255);\r\nset @object_name = (case when @@SERVICENAME = 'MSSQLSERVER' then 'SQLServer' else 'MSSQL$'+@@SERVICENAME end);\r\n\r\nselect @p_start_time = st.local_time, @p_end_time = et.local_time \r\nfrom dbo.utc2local($__timeFrom()) as st join dbo.utc2local($__timeTo()) et on 1 = 1;\r\n\r\nSELECT\tl2u.utc_time as time\r\n\t\t,[metric] = instance_name\r\n\t\t,[value] = cntr_value\r\nFROM (\t\r\n\t\tselect collection_time, cntr_value, instance_name\r\n\t\tfrom dbo.dm_os_performance_counters as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.[object_name] = cast(@object_name+':Latches' as nvarchar(256)) and pc.counter_name = 'Latch Waits/sec'\r\n\t\t--\r\n\t\tunion all\r\n\t\t--\r\n\t\tselect collection_time, cntr_value, instance_name\r\n\t\tfrom dbo.dm_os_performance_counters_aggregated as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.[object_name] = cast(@object_name+':Latches' as nvarchar(256)) and pc.counter_name = 'Latch Waits/sec'\r\n) AS pc\r\ncross apply dbo.local2utc(collection_time) as l2u\r\norder by collection_time;\r\n\"\r\nSET QUOTED_IDENTIFIER ON\r\nIF ('$server' = SERVERPROPERTY('ServerName'))\r\nBEGIN\r\n  EXEC (@sql);\r\nEND;\r\nELSE\r\nBEGIN\r\n  EXEC (@sql) AT [$server];\r\nEND;",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Latch Waits/sec",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:775",
+              "format": "short",
+              "label": null,
+              "logBase": 2,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:776",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_INVENTORY}",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 23
+          },
+          "hiddenSeries": false,
+          "id": 100,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": false,
+            "sideWidth": 400,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\r\nSET QUOTED_IDENTIFIER OFF\r\nDECLARE @sql varchar(max) = \"\r\ndeclare @p_start_time datetime2;\r\ndeclare @p_end_time datetime2;\r\ndeclare @object_name varchar(255);\r\nset @object_name = (case when @@SERVICENAME = 'MSSQLSERVER' then 'SQLServer' else 'MSSQL$'+@@SERVICENAME end);\r\n\r\nselect @p_start_time = st.local_time, @p_end_time = et.local_time \r\nfrom dbo.utc2local($__timeFrom()) as st join dbo.utc2local($__timeTo()) et on 1 = 1;\r\n\r\nSELECT\tl2u.utc_time as time\r\n\t\t,[metric] = instance_name\r\n\t\t,[value] = cntr_value\r\nFROM (\t\r\n\t\tselect collection_time, cntr_value, instance_name\r\n\t\tfrom dbo.dm_os_performance_counters as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.[object_name] = cast(@object_name+':Latches' as nvarchar(256)) and pc.counter_name = 'Total Latch Wait Time (ms)'\r\n\t\t--\r\n\t\tunion all\r\n\t\t--\r\n\t\tselect collection_time, cntr_value, instance_name\r\n\t\tfrom dbo.dm_os_performance_counters_aggregated as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.[object_name] = cast(@object_name+':Latches' as nvarchar(256)) and pc.counter_name = 'Total Latch Wait Time (ms)'\r\n) AS pc\r\ncross apply dbo.local2utc(collection_time) as l2u\r\norder by collection_time;\r\n\"\r\nSET QUOTED_IDENTIFIER ON\r\nIF ('$server' = SERVERPROPERTY('ServerName'))\r\nBEGIN\r\n  EXEC (@sql);\r\nEND;\r\nELSE\r\nBEGIN\r\n  EXEC (@sql) AT [$server];\r\nEND;",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Total Latch Wait Time (ms)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:775",
+              "format": "ms",
+              "label": null,
+              "logBase": 2,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:776",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_INVENTORY}",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 31
+          },
+          "hiddenSeries": false,
+          "id": 98,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": false,
+            "sideWidth": 400,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\r\nSET QUOTED_IDENTIFIER OFF\r\nDECLARE @sql varchar(max) = \"\r\ndeclare @p_start_time datetime2;\r\ndeclare @p_end_time datetime2;\r\ndeclare @object_name varchar(255);\r\nset @object_name = (case when @@SERVICENAME = 'MSSQLSERVER' then 'SQLServer' else 'MSSQL$'+@@SERVICENAME end);\r\n\r\nselect @p_start_time = st.local_time, @p_end_time = et.local_time \r\nfrom dbo.utc2local($__timeFrom()) as st join dbo.utc2local($__timeTo()) et on 1 = 1;\r\n\r\nSELECT l2u.utc_time as time\r\n\t   ,metric = instance_name\r\n\t   ,cntr_value as [value]\r\nFROM (\t\r\n\t\tselect collection_time, counter_name, cntr_value, instance_name\r\n\t\tfrom dbo.dm_os_performance_counters as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.[object_name] = cast(@object_name+':Latches' as nvarchar(256)) and pc.counter_name = 'Average Latch Wait Time (ms)'\r\n\t\t--\r\n\t\tunion all\r\n\t\t--\r\n\t\tselect collection_time, counter_name, cntr_value, instance_name\r\n\t\tfrom dbo.dm_os_performance_counters_aggregated as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.[object_name] = cast(@object_name+':Latches' as nvarchar(256)) and pc.counter_name = 'Average Latch Wait Time (ms)'\r\n) AS pc\r\ncross apply dbo.local2utc(collection_time) as l2u\r\norder by collection_time;\r\n\"\r\nSET QUOTED_IDENTIFIER ON\r\nIF ('$server' = SERVERPROPERTY('ServerName'))\r\nBEGIN\r\n  EXEC (@sql);\r\nEND;\r\nELSE\r\nBEGIN\r\n  EXEC (@sql) AT [$server];\r\nEND;",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Average Latch Wait Time (ms)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:775",
+              "format": "ms",
+              "label": null,
+              "logBase": 2,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:776",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "MSSQL Latches Performance Counters",
       "type": "row"
     }
   ],
@@ -3411,12 +3761,8 @@
     "list": [
       {
         "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "MSI",
-          "value": "MSI"
-        },
-        "datasource": "MSI",
+        "current": {},
+        "datasource": "${DS_INVENTORY}",
         "definition": "select server_name\nfrom (values ('MSI')\n\t\t\t,('SQL-A')\n\t\t\t,('SQL-A\\V17')\n\t ) as servers (server_name);",
         "hide": 0,
         "includeAll": false,
@@ -3438,7 +3784,7 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {
@@ -3458,5 +3804,5 @@
   "timezone": "",
   "title": "Monitoring - Perfmon Counters - Quest Softwares",
   "uid": "_dioLINMk",
-  "version": 114
+  "version": 120
 }

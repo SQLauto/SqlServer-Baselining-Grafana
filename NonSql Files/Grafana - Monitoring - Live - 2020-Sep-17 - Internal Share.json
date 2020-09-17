@@ -17,7 +17,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 7,
-  "iteration": 1600314905227,
+  "iteration": 1600331424586,
   "links": [],
   "panels": [
     {
@@ -451,7 +451,7 @@
       "type": "gauge"
     },
     {
-      "datasource": "MSI",
+      "datasource": null,
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -508,7 +508,7 @@
       "type": "stat"
     },
     {
-      "datasource": "MSI",
+      "datasource": null,
       "description": "select count(*) as counts from sys.sysprocesses as p where p.blocked <> 0",
       "fieldConfig": {
         "defaults": {
@@ -733,7 +733,7 @@
             "h": 5,
             "w": 24,
             "x": 0,
-            "y": 7
+            "y": 15
           },
           "hiddenSeries": false,
           "id": 57,
@@ -986,7 +986,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 9
+            "y": 5
           },
           "hiddenSeries": false,
           "id": 18,
@@ -1101,7 +1101,7 @@
             "h": 8,
             "w": 24,
             "x": 0,
-            "y": 5
+            "y": 6
           },
           "hiddenSeries": false,
           "id": 22,
@@ -1350,7 +1350,7 @@
             "h": 11,
             "w": 24,
             "x": 0,
-            "y": 12
+            "y": 7
           },
           "id": 49,
           "options": {
@@ -1419,7 +1419,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 21
       },
       "id": 45,
       "panels": [
@@ -1443,7 +1443,7 @@
             "h": 8,
             "w": 24,
             "x": 0,
-            "y": 20
+            "y": 8
           },
           "hiddenSeries": false,
           "id": 53,
@@ -1544,7 +1544,7 @@
             "h": 8,
             "w": 24,
             "x": 0,
-            "y": 28
+            "y": 16
           },
           "hiddenSeries": false,
           "id": 51,
@@ -1636,7 +1636,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 22
       },
       "id": 43,
       "panels": [
@@ -1757,7 +1757,7 @@
           "text": "MSI",
           "value": "MSI"
         },
-        "datasource": "MSI",
+        "datasource": "Inventory",
         "definition": "select server_name\nfrom (values ('MSI')\n\t\t\t,('SQL-A')\n\t\t\t,('SQL-A\\V17')\n\t ) as servers (server_name);",
         "hide": 0,
         "includeAll": false,
@@ -1799,5 +1799,5 @@
   "timezone": "browser",
   "title": "Monitoring - Live",
   "uid": "Fg8Q_wSMz",
-  "version": 202
+  "version": 205
 }

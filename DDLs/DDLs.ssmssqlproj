@@ -15,21 +15,39 @@
           <ConnectionProtocol>NotSpecified</ConnectionProtocol>
           <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
         </ConnectionNode>
+        <ConnectionNode Name="SQL-A:verysecretadmin">
+          <Created>2020-09-17T22:43:18.0128969+05:30</Created>
+          <Type>SQL</Type>
+          <Server>SQL-A</Server>
+          <UserName>verysecretadmin</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+        <ConnectionNode Name="SQL-A\V17:sa">
+          <Created>2020-09-17T22:43:32.3897371+05:30</Created>
+          <Type>SQL</Type>
+          <Server>SQL-A\V17</Server>
+          <UserName>sa</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
       </Items>
     </LogicalFolder>
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
-        <FileNode Name="(dba) Collect Metrics.sql">
+        <FileNode Name="SCH-Create-Functions.sql">
           <AssociatedConnectionMoniker />
           <AssociatedConnSrvName />
           <AssociatedConnUserName />
-          <FullPath>(dba) Collect Metrics.sql</FullPath>
-        </FileNode>
-        <FileNode Name="SCH-Create-Function-utc2local.sql">
-          <AssociatedConnectionMoniker />
-          <AssociatedConnSrvName />
-          <AssociatedConnUserName />
-          <FullPath>SCH-Create-Function-utc2local.sql</FullPath>
+          <FullPath>SCH-Create-Functions.sql</FullPath>
         </FileNode>
         <FileNode Name="SCH-DBA-database.sql">
           <AssociatedConnectionMoniker />
@@ -38,16 +56,40 @@
           <FullPath>SCH-DBA-database.sql</FullPath>
         </FileNode>
         <FileNode Name="SCH-Job-[(dba) Collect Metrics - WhoIsActive].sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(local):True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(local)</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>SCH-Job-[(dba) Collect Metrics - WhoIsActive].sql</FullPath>
+        </FileNode>
+        <FileNode Name="SCH-Jobs-All-[(dba) Collect Metrics].sql">
           <AssociatedConnectionMoniker />
           <AssociatedConnSrvName />
           <AssociatedConnUserName />
-          <FullPath>SCH-Job-[(dba) Collect Metrics - WhoIsActive].sql</FullPath>
+          <FullPath>SCH-Jobs-All-[(dba) Collect Metrics].sql</FullPath>
+        </FileNode>
+        <FileNode Name="SCH-tables-views.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(local):True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(local)</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>SCH-tables-views.sql</FullPath>
+        </FileNode>
+        <FileNode Name="SCH-tables-views-Named-Instance.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(local):True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(local)</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>SCH-tables-views-Named-Instance.sql</FullPath>
         </FileNode>
         <FileNode Name="SCH-usp_collect_performance_metrics.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(local):True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>(local)</AssociatedConnSrvName>
           <AssociatedConnUserName />
           <FullPath>SCH-usp_collect_performance_metrics.sql</FullPath>
+        </FileNode>
+        <FileNode Name="SCH-usp_collect_performance_metrics-v1.0.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:SQL-A:False:verysecretadmin</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>SQL-A</AssociatedConnSrvName>
+          <AssociatedConnUserName>verysecretadmin</AssociatedConnUserName>
+          <FullPath>SCH-usp_collect_performance_metrics-v1.0.sql</FullPath>
         </FileNode>
       </Items>
     </LogicalFolder>

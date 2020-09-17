@@ -1,8 +1,8 @@
 {
   "__inputs": [
     {
-      "name": "DS_MSI",
-      "label": "MSI",
+      "name": "DS_INVENTORY",
+      "label": "Inventory",
       "description": "",
       "type": "datasource",
       "pluginId": "mssql",
@@ -65,12 +65,12 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1600314692338,
+  "iteration": 1600331424584,
   "links": [],
   "panels": [
     {
       "collapsed": false,
-      "datasource": "${DS_MSI}",
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -83,7 +83,7 @@
       "type": "row"
     },
     {
-      "datasource": "${DS_MSI}",
+      "datasource": "${DS_INVENTORY}",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -161,7 +161,7 @@
       "type": "stat"
     },
     {
-      "datasource": "${DS_MSI}",
+      "datasource": "${DS_INVENTORY}",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -231,7 +231,7 @@
       "type": "gauge"
     },
     {
-      "datasource": "${DS_MSI}",
+      "datasource": "${DS_INVENTORY}",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -295,7 +295,7 @@
       "type": "stat"
     },
     {
-      "datasource": "${DS_MSI}",
+      "datasource": "${DS_INVENTORY}",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -364,7 +364,7 @@
       "type": "stat"
     },
     {
-      "datasource": "${DS_MSI}",
+      "datasource": "${DS_INVENTORY}",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -427,7 +427,7 @@
       "type": "stat"
     },
     {
-      "datasource": "${DS_MSI}",
+      "datasource": "${DS_INVENTORY}",
       "description": "Ratio of Total Server Memory to Target Server Memory",
       "fieldConfig": {
         "defaults": {
@@ -499,7 +499,7 @@
       "type": "gauge"
     },
     {
-      "datasource": "${DS_MSI}",
+      "datasource": "${DS_INVENTORY}",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -556,7 +556,7 @@
       "type": "stat"
     },
     {
-      "datasource": "${DS_MSI}",
+      "datasource": "${DS_INVENTORY}",
       "description": "select count(*) as counts from sys.sysprocesses as p where p.blocked <> 0",
       "fieldConfig": {
         "defaults": {
@@ -622,7 +622,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "${DS_MSI}",
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -636,7 +636,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_MSI}",
+          "datasource": "${DS_INVENTORY}",
           "description": "https://sqlperformance.com/2014/10/sql-performance/knee-jerk-page-life-expectancy",
           "fieldConfig": {
             "defaults": {
@@ -754,7 +754,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "${DS_MSI}",
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -768,7 +768,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_MSI}",
+          "datasource": "${DS_INVENTORY}",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -781,7 +781,7 @@
             "h": 5,
             "w": 24,
             "x": 0,
-            "y": 7
+            "y": 15
           },
           "hiddenSeries": false,
           "id": 57,
@@ -885,7 +885,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "${DS_MSI}",
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -899,7 +899,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_MSI}",
+          "datasource": "${DS_INVENTORY}",
           "description": "https://sqlperformance.com/2014/10/sql-performance/knee-jerk-page-life-expectancy",
           "fieldConfig": {
             "defaults": {
@@ -1006,7 +1006,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "${DS_MSI}",
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1020,7 +1020,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_MSI}",
+          "datasource": "${DS_INVENTORY}",
           "description": "https://sqlperformance.com/2014/10/sql-performance/knee-jerk-page-life-expectancy",
           "fieldConfig": {
             "defaults": {
@@ -1034,7 +1034,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 9
+            "y": 5
           },
           "hiddenSeries": false,
           "id": 18,
@@ -1120,7 +1120,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "${DS_MSI}",
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1134,7 +1134,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_MSI}",
+          "datasource": "${DS_INVENTORY}",
           "description": "https://sqlperformance.com/2014/10/sql-performance/knee-jerk-page-life-expectancy",
           "fieldConfig": {
             "defaults": {
@@ -1149,7 +1149,7 @@
             "h": 8,
             "w": 24,
             "x": 0,
-            "y": 5
+            "y": 6
           },
           "hiddenSeries": false,
           "id": 22,
@@ -1231,7 +1231,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "${DS_MSI}",
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1241,7 +1241,7 @@
       "id": 47,
       "panels": [
         {
-          "datasource": "${DS_MSI}",
+          "datasource": "${DS_INVENTORY}",
           "description": "WaitWaits for selected duration",
           "fieldConfig": {
             "defaults": {
@@ -1398,7 +1398,7 @@
             "h": 11,
             "w": 24,
             "x": 0,
-            "y": 12
+            "y": 7
           },
           "id": 49,
           "options": {
@@ -1455,7 +1455,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "${DS_MSI}",
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1469,7 +1469,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_MSI}",
+          "datasource": "${DS_INVENTORY}",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1484,7 +1484,7 @@
             "h": 8,
             "w": 24,
             "x": 0,
-            "y": 20
+            "y": 8
           },
           "hiddenSeries": false,
           "id": 53,
@@ -1570,7 +1570,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_MSI}",
+          "datasource": "${DS_INVENTORY}",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1585,7 +1585,7 @@
             "h": 8,
             "w": 24,
             "x": 0,
-            "y": 28
+            "y": 16
           },
           "hiddenSeries": false,
           "id": 51,
@@ -1672,7 +1672,7 @@
     },
     {
       "collapsed": true,
-      "datasource": "${DS_MSI}",
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1686,7 +1686,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_MSI}",
+          "datasource": "${DS_INVENTORY}",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -1794,7 +1794,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_MSI}",
+        "datasource": "${DS_INVENTORY}",
         "definition": "select server_name\nfrom (values ('MSI')\n\t\t\t,('SQL-A')\n\t\t\t,('SQL-A\\V17')\n\t ) as servers (server_name);",
         "hide": 0,
         "includeAll": false,
@@ -1836,5 +1836,5 @@
   "timezone": "browser",
   "title": "Monitoring - Live",
   "uid": "Fg8Q_wSMz",
-  "version": 202
+  "version": 205
 }

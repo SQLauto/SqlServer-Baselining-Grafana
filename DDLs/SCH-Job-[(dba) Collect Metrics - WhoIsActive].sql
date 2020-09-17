@@ -50,7 +50,7 @@ BEGIN
 	CREATE NONCLUSTERED INDEX [nci_WhoIsActive_blockings] ON [dbo].[WhoIsActive]
 	(	blocking_session_id, blocked_session_count, [collection_time] ASC, session_id)
 	INCLUDE (login_name, [host_name], [database_name], [program_name])
-	--ON [fg_nci]
+	ON [fg_nci]
 END
 GO
 
@@ -66,15 +66,15 @@ EXEC dbo.sp_WhoIsActive @get_outer_command=1, @get_task_info=2
 GO
 */
 
+/*
 -- Step 06: Create SQL Agent Job
 USE [msdb]
 GO
 
-/****** Object:  Job [(dba) Collect Metrics - WhoIsActive]    Script Date: 13-Sep-20 9:23:05 PM ******/
 BEGIN TRANSACTION
 DECLARE @ReturnCode INT
 SELECT @ReturnCode = 0
-/****** Object:  JobCategory [Database Maintenance]    Script Date: 13-Sep-20 9:23:05 PM ******/
+
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'Database Maintenance' AND category_class=1)
 BEGIN
 EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'Database Maintenance'
@@ -98,7 +98,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'(dba) Collect Metrics - WhoI
 		@category_name=N'Database Maintenance', 
 		@owner_login_name=N'sa', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Log activities with [sp_WhoIsActive]]    Script Date: 13-Sep-20 9:23:05 PM ******/
+
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Log activities with [sp_WhoIsActive]', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
@@ -222,11 +222,10 @@ GO
 USE [msdb]
 GO
 
-/****** Object:  Job [(dba) Collect Metrics - Purge WhoIsActive]    Script Date: 13-Sep-20 9:24:33 PM ******/
 BEGIN TRANSACTION
 DECLARE @ReturnCode INT
 SELECT @ReturnCode = 0
-/****** Object:  JobCategory [DBA]    Script Date: 13-Sep-20 9:24:33 PM ******/
+
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'DBA' AND category_class=1)
 BEGIN
 EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'DBA'
@@ -251,7 +250,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'(dba) Collect Metrics - Purg
 		@owner_login_name=N'sa', 
 		@notify_email_operator_name=N'DBA', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge-Data-Older-Than-60-Days]    Script Date: 13-Sep-20 9:24:33 PM ******/
+
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge-Data-Older-Than-60-Days', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
@@ -302,3 +301,4 @@ QuitWithRollback:
     IF (@@TRANCOUNT > 0) ROLLBACK TRANSACTION
 EndSave:
 GO
+*/
