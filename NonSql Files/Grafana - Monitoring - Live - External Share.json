@@ -1,4 +1,52 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_INVENTORY",
+      "label": "Inventory",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "mssql",
+      "pluginName": "Microsoft SQL Server"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.1.4"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "mssql",
+      "name": "Microsoft SQL Server",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -16,13 +64,13 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 7,
-  "iteration": 1600331424586,
+  "id": null,
+  "iteration": 1600371535533,
   "links": [],
   "panels": [
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -35,7 +83,7 @@
       "type": "row"
     },
     {
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -113,7 +161,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -183,7 +231,7 @@
       "type": "gauge"
     },
     {
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -247,7 +295,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -316,7 +364,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -379,7 +427,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "description": "Ratio of Total Server Memory to Target Server Memory",
       "fieldConfig": {
         "defaults": {
@@ -451,7 +499,7 @@
       "type": "gauge"
     },
     {
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -508,7 +556,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "description": "select count(*) as counts from sys.sysprocesses as p where p.blocked <> 0",
       "fieldConfig": {
         "defaults": {
@@ -574,7 +622,7 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -588,7 +636,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "https://sqlperformance.com/2014/10/sql-performance/knee-jerk-page-life-expectancy",
           "fieldConfig": {
             "defaults": {
@@ -706,7 +754,7 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -720,7 +768,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "fieldConfig": {
             "defaults": {
               "custom": {}
@@ -733,7 +781,7 @@
             "h": 5,
             "w": 24,
             "x": 0,
-            "y": 15
+            "y": 3
           },
           "hiddenSeries": false,
           "id": 57,
@@ -837,7 +885,7 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -851,7 +899,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "https://sqlperformance.com/2014/10/sql-performance/knee-jerk-page-life-expectancy",
           "fieldConfig": {
             "defaults": {
@@ -958,7 +1006,7 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -972,7 +1020,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "https://sqlperformance.com/2014/10/sql-performance/knee-jerk-page-life-expectancy",
           "fieldConfig": {
             "defaults": {
@@ -1072,7 +1120,7 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1086,7 +1134,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "https://sqlperformance.com/2014/10/sql-performance/knee-jerk-page-life-expectancy",
           "fieldConfig": {
             "defaults": {
@@ -1183,7 +1231,7 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1193,7 +1241,7 @@
       "id": 47,
       "panels": [
         {
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "WaitWaits for selected duration",
           "fieldConfig": {
             "defaults": {
@@ -1402,19 +1450,12 @@
         }
       ],
       "repeat": "server",
-      "scopedVars": {
-        "server": {
-          "selected": true,
-          "text": "MSI",
-          "value": "MSI"
-        }
-      },
       "title": "Delta - Wait Stats",
       "type": "row"
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1428,7 +1469,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1529,7 +1570,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1631,7 +1672,7 @@
     },
     {
       "collapsed": true,
-      "datasource": null,
+      "datasource": "${DS_INVENTORY}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1645,7 +1686,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "${DS_INVENTORY}",
           "fieldConfig": {
             "defaults": {
               "custom": {},
@@ -1752,20 +1793,16 @@
     "list": [
       {
         "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "MSI",
-          "value": "MSI"
-        },
-        "datasource": "Inventory",
-        "definition": "select server_name\nfrom (values ('MSI')\n\t\t\t,('SQL-A')\n\t\t\t,('SQL-A\\V17')\n\t ) as servers (server_name);",
+        "current": {},
+        "datasource": "${DS_INVENTORY}",
+        "definition": "select srvname from sys.sysservers where providername = 'SQLOLEDB'",
         "hide": 0,
         "includeAll": false,
         "label": "Server",
         "multi": false,
         "name": "server",
         "options": [],
-        "query": "select server_name\nfrom (values ('MSI')\n\t\t\t,('SQL-A')\n\t\t\t,('SQL-A\\V17')\n\t ) as servers (server_name);",
+        "query": "select srvname from sys.sysservers where providername = 'SQLOLEDB'",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1799,5 +1836,5 @@
   "timezone": "browser",
   "title": "Monitoring - Live",
   "uid": "Fg8Q_wSMz",
-  "version": 205
+  "version": 208
 }

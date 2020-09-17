@@ -19,7 +19,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 10,
-  "iteration": 1600368621371,
+  "iteration": 1600371665550,
   "links": [],
   "panels": [
     {
@@ -3737,14 +3737,14 @@
           "value": "MSI"
         },
         "datasource": "Inventory",
-        "definition": "select server_name\nfrom (values ('MSI')\n\t\t\t,('SQL-A')\n\t\t\t,('SQL-A\\V17')\n\t ) as servers (server_name);",
+        "definition": "select srvname from sys.sysservers where providername = 'SQLOLEDB'",
         "hide": 0,
         "includeAll": false,
         "label": "Server",
         "multi": false,
         "name": "server",
         "options": [],
-        "query": "select server_name\nfrom (values ('MSI')\n\t\t\t,('SQL-A')\n\t\t\t,('SQL-A\\V17')\n\t ) as servers (server_name);",
+        "query": "select srvname from sys.sysservers where providername = 'SQLOLEDB'",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -3758,7 +3758,7 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
@@ -3778,5 +3778,5 @@
   "timezone": "",
   "title": "Monitoring - Perfmon Counters - Quest Softwares",
   "uid": "_dioLINMk",
-  "version": 120
+  "version": 121
 }
