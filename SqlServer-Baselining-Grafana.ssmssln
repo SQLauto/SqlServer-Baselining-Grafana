@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# SQL Server Management Studio Solution File, Format Version 18.00
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "DDLs", "DDLs\DDLs.ssmssqlproj", "{50666399-6019-48FC-8F2D-D374C87F9A57}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Permissions", "Permissions\Permissions.ssmssqlproj", "{45B8BCE2-C6A0-4A90-9760-ADA6F90BCB76}"
+EndProject
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "Server-Objects", "Server-Objects\Server-Objects.ssmssqlproj", "{C409215F-4A65-49D1-B747-538F195C5781}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Default|Default = Default|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EBD30D66-F8B7-466D-8256-1616E0986DF7}.Default|Default.ActiveCfg = Default
+		{50666399-6019-48FC-8F2D-D374C87F9A57}.Default|Default.ActiveCfg = Default
+		{45B8BCE2-C6A0-4A90-9760-ADA6F90BCB76}.Default|Default.ActiveCfg = Default
+		{C409215F-4A65-49D1-B747-538F195C5781}.Default|Default.ActiveCfg = Default
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A76E9847-42CF-42C4-AF22-F90E0FFEE25E}
+	EndGlobalSection
+EndGlobal

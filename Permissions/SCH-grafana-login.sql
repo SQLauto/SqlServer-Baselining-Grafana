@@ -1,0 +1,20 @@
+USE [master]
+GO
+CREATE LOGIN [grafana] WITH PASSWORD=N'grafana', DEFAULT_DATABASE=[DBA], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF
+GO
+GRANT VIEW SERVER STATE TO [grafana];
+GO
+USE [DBA]
+GO
+CREATE USER [grafana] FOR LOGIN [grafana]
+GO
+ALTER ROLE [db_datareader] ADD MEMBER [grafana]
+GO
+USE [msdb]
+GO
+CREATE USER [grafana] FOR LOGIN [grafana]
+GO
+USE [msdb]
+GO
+ALTER ROLE [SQLAgentReaderRole] ADD MEMBER [grafana]
+GO

@@ -1,0 +1,1840 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_MSI",
+      "label": "MSI",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "mssql",
+      "pluginName": "Microsoft SQL Server"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.1.4"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "mssql",
+      "name": "Microsoft SQL Server",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Monitor Server Using Live PerfMon Metrics",
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": null,
+  "iteration": 1600314692338,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "datasource": "${DS_MSI}",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 37,
+      "panels": [],
+      "title": "Sql Server - Overview",
+      "type": "row"
+    },
+    {
+      "datasource": "${DS_MSI}",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": -10
+              },
+              {
+                "color": "dark-red",
+                "value": 300
+              },
+              {
+                "color": "super-light-red",
+                "value": 600
+              },
+              {
+                "color": "light-green",
+                "value": 601
+              },
+              {
+                "color": "dark-green",
+                "value": 1200
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 1
+      },
+      "id": 15,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "/^page_life_expectancy$/",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.4",
+      "targets": [
+        {
+          "alias": "",
+          "format": "table",
+          "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\nSET QUOTED_IDENTIFIER OFF\nDECLARE @sql varchar(max) = \"\ndeclare @object_name varchar(255);\nset @object_name = (case when @@SERVICENAME = 'MSSQLSERVER' then 'SQLServer' else 'MSSQL$'+@@SERVICENAME end);\n\nSELECT /* Grafana => PLE */ top 1 collection_time as time, cntr_value as page_life_expectancy\nFROM dbo.dm_os_performance_counters\nWHERE object_name = (@object_name+':Buffer Manager') and counter_name = 'Page life expectancy'\nORDER BY collection_time desc;\n\"\nSET QUOTED_IDENTIFIER ON\nIF ('$server' = SERVERPROPERTY('ServerName'))\nBEGIN\n  EXEC (@sql);\nEND;\nELSE\nBEGIN\n  EXEC (@sql) AT [$server];\nEND;",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "PLE ",
+      "type": "stat"
+    },
+    {
+      "datasource": "${DS_MSI}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "semi-dark-green",
+                "value": null
+              },
+              {
+                "color": "semi-dark-green",
+                "value": 50
+              },
+              {
+                "color": "light-yellow",
+                "value": 70
+              },
+              {
+                "color": "semi-dark-orange",
+                "value": 80
+              },
+              {
+                "color": "dark-red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "%"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 1
+      },
+      "id": 10,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "/^CPU$/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.1.4",
+      "targets": [
+        {
+          "alias": "",
+          "format": "table",
+          "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\nSET QUOTED_IDENTIFIER OFF\nDECLARE @sql varchar(max) = \"\nselect top 1 1 as time,\tsystem_cpu_utilization as CPU from dbo.dm_os_ring_buffers order by collection_time DESC;\n\"\nSET QUOTED_IDENTIFIER ON\nIF ('$server' = SERVERPROPERTY('ServerName'))\nBEGIN\n  EXEC (@sql);\nEND;\nELSE\nBEGIN\n  EXEC (@sql) AT [$server];\nEND;",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CPU",
+      "type": "gauge"
+    },
+    {
+      "datasource": "${DS_MSI}",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [
+            {
+              "from": "",
+              "id": 0,
+              "text": "",
+              "to": "",
+              "type": 1
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 6,
+        "y": 1
+      },
+      "id": 23,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.4",
+      "targets": [
+        {
+          "alias": "",
+          "format": "table",
+          "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\r\nSET QUOTED_IDENTIFIER OFF\r\nDECLARE @sql varchar(max) = \"\r\n--\tQuery to find what's is running on server\r\nSELECT\tgetdate() as time, COUNT(*) as active_request_count\r\nFROM\tsys.dm_exec_sessions AS s\r\nLEFT JOIN sys.dm_exec_requests AS r ON r.session_id = s.session_id\r\nOUTER APPLY sys.dm_exec_sql_text(r.sql_handle) AS st\r\nOUTER APPLY sys.dm_exec_query_plan(r.plan_handle) AS bqp\r\nOUTER APPLY sys.dm_exec_text_query_plan(r.plan_handle,r.statement_start_offset, r.statement_end_offset) as sqp\r\nWHERE\ts.session_id != @@SPID\r\n\tAND (\t(CASE\tWHEN\ts.session_id IN (select ri.blocking_session_id from sys.dm_exec_requests as ri )\r\n\t\t\t\t\t--\tGet sessions involved in blocking (including system sessions)\r\n\t\t\t\t\tTHEN\t1\r\n\t\t\t\t\tWHEN\tr.blocking_session_id IS NOT NULL AND r.blocking_session_id <> 0\r\n\t\t\t\t\tTHEN\t1\r\n\t\t\t\t\tELSE\t0\r\n\t\t\tEND) = 1\r\n\t\t\tOR\r\n\t\t\t(CASE\tWHEN\ts.session_id > 50\r\n\t\t\t\t\t\t\tAND r.session_id IS NOT NULL -- either some part of session has active request\r\n\t\t\t\t\t\t\t--AND ISNULL(open_resultset_count,0) > 0 -- some result is open\r\n\t\t\t\t\t\t\tAND s.status <> 'sleeping'\r\n\t\t\t\t\tTHEN\t1\r\n\t\t\t\t\tELSE\t0\r\n\t\t\tEND) = 1\r\n\t\t\tOR\r\n\t\t\t(CASE\tWHEN\ts.session_id > 50\r\n\t\t\t\t\t\t\tAND ISNULL(r.open_transaction_count,0) > 0\r\n\t\t\t\t\tTHEN\t1\r\n\t\t\t\t\tELSE\t0\r\n\t\t\tEND) = 1\r\n\t\t)\t\t\r\nORDER BY time;\r\n\"\r\nSET QUOTED_IDENTIFIER ON\r\nIF ('$server' = SERVERPROPERTY('ServerName'))\r\nBEGIN\r\n  EXEC (@sql);\r\nEND;\r\nELSE\r\nBEGIN\r\n  EXEC (@sql) AT [$server];\r\nEND;",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Active User Requests",
+      "type": "stat"
+    },
+    {
+      "datasource": "${DS_MSI}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "light-yellow",
+                "value": 2
+              },
+              {
+                "color": "dark-orange",
+                "value": 5
+              },
+              {
+                "color": "semi-dark-red",
+                "value": 10
+              },
+              {
+                "color": "dark-red",
+                "value": 25
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 9,
+        "y": 1
+      },
+      "id": 14,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.4",
+      "targets": [
+        {
+          "alias": "",
+          "format": "table",
+          "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\nSET QUOTED_IDENTIFIER OFF\nDECLARE @sql varchar(max) = \"\ndeclare @object_name varchar(255);\nset @object_name = (case when @@SERVICENAME = 'MSSQLSERVER' then 'SQLServer' else 'MSSQL$'+@@SERVICENAME end);\n\nSELECT /* Grafana => PLE */ top 1 collection_time as time, cntr_value as [Memory Grants Pending]\nFROM dbo.dm_os_performance_counters\nWHERE object_name = (@object_name+':Memory Manager') and counter_name = 'Memory Grants Pending'\nORDER BY collection_time desc;\n\"\nSET QUOTED_IDENTIFIER ON\nIF ('$server' = SERVERPROPERTY('ServerName'))\nBEGIN\n  EXEC (@sql);\nEND;\nELSE\nBEGIN\n  EXEC (@sql) AT [$server];\nEND;",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Memory Grants Pending",
+      "type": "stat"
+    },
+    {
+      "datasource": "${DS_MSI}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 500
+              },
+              {
+                "color": "semi-dark-green",
+                "value": 2048
+              }
+            ]
+          },
+          "unit": "decmbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 12,
+        "y": 1
+      },
+      "id": 11,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.4",
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\nSET QUOTED_IDENTIFIER OFF\nDECLARE @sql varchar(max) = \"\nselect top 1 collection_time as time, (available_physical_memory_kb*1.0)/1024 as [Available Memory]\nfrom [dbo].[dm_os_sys_memory]\norder by collection_time desc;\n\"\nSET QUOTED_IDENTIFIER ON\nIF ('$server' = SERVERPROPERTY('ServerName'))\nBEGIN\n  EXEC (@sql);\nEND;\nELSE\nBEGIN\n  EXEC (@sql) AT [$server];\nEND;",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Available Memory",
+      "type": "stat"
+    },
+    {
+      "datasource": "${DS_MSI}",
+      "description": "Ratio of Total Server Memory to Target Server Memory",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [
+            {
+              "from": "",
+              "id": 0,
+              "text": "",
+              "to": "",
+              "type": 1
+            }
+          ],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "%"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 15,
+        "y": 1
+      },
+      "id": 13,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.1.4",
+      "targets": [
+        {
+          "alias": "",
+          "format": "time_series",
+          "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\nSET QUOTED_IDENTIFIER OFF\nDECLARE @sql varchar(max) = \"\ndeclare @object_name varchar(255);\nset @object_name = (case when @@SERVICENAME = 'MSSQLSERVER' then 'SQLServer' else 'MSSQL$'+@@SERVICENAME end);\n\nSELECT /* Grafana => PLE */ top 1 ttl.collection_time as time, (ttl.cntr_value*100)/tgt.cntr_value as [SQLServer Max M/r Usage]\nFROM dbo.dm_os_performance_counters as ttl\nJOIN dbo.dm_os_performance_counters as tgt\nON ttl.object_name = tgt.object_name \nAND ttl.object_name = (@object_name+':Memory Manager')\nAND ttl.counter_name = 'Total Server Memory (KB)'\nAND tgt.counter_name = 'Target Server Memory (KB)'\nORDER BY time desc;\n\"\nSET QUOTED_IDENTIFIER ON\nIF ('$server' = SERVERPROPERTY('ServerName'))\nBEGIN\n  EXEC (@sql);\nEND;\nELSE\nBEGIN\n  EXEC (@sql) AT [$server];\nEND;",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SqlServer Max M/r Usage",
+      "transformations": [],
+      "type": "gauge"
+    },
+    {
+      "datasource": "${DS_MSI}",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "decgbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 18,
+        "y": 1
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "/^SqlServer_Physical_Memory_GB$/",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.4",
+      "targets": [
+        {
+          "alias": "",
+          "format": "table",
+          "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\r\nSET QUOTED_IDENTIFIER OFF\r\nDECLARE @sql varchar(max) = \"\r\nselect top 1 collection_time as time, cast(([SQL Server Memory Usage (MB)]*1.0)/1024 as decimal(20,2)) as SqlServer_Physical_Memory_GB from [dbo].[dm_os_process_memory] order by collection_time desc;\r\n\"\r\nSET QUOTED_IDENTIFIER ON\r\nIF ('$server' = SERVERPROPERTY('ServerName'))\r\nBEGIN\r\n  EXEC (@sql);\r\nEND;\r\nELSE\r\nBEGIN\r\n  EXEC (@sql) AT [$server];\r\nEND;",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "SqlServer Physical Memory",
+      "type": "stat"
+    },
+    {
+      "datasource": "${DS_MSI}",
+      "description": "select count(*) as counts from sys.sysprocesses as p where p.blocked <> 0",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-orange",
+                "value": 2
+              },
+              {
+                "color": "dark-red",
+                "value": 10
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 21,
+        "y": 1
+      },
+      "id": 21,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "/^counts$/",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.4",
+      "targets": [
+        {
+          "alias": "",
+          "format": "table",
+          "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\nSET QUOTED_IDENTIFIER OFF\nDECLARE @sql varchar(max) = \"\nselect count(*) as counts from sys.sysprocesses as p where p.blocked <> 0;\n\"\nSET QUOTED_IDENTIFIER ON\nIF ('$server' = SERVERPROPERTY('ServerName'))\nBEGIN\n  EXEC (@sql);\nEND;\nELSE\nBEGIN\n  EXEC (@sql) AT [$server];\nEND;",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Blocked Sessions",
+      "type": "stat"
+    },
+    {
+      "collapsed": true,
+      "datasource": "${DS_MSI}",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "id": 33,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_MSI}",
+          "description": "https://sqlperformance.com/2014/10/sql-performance/knee-jerk-page-life-expectancy",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 6
+          },
+          "hiddenSeries": false,
+          "id": 16,
+          "legend": {
+            "avg": true,
+            "current": false,
+            "hideZero": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\nSET QUOTED_IDENTIFIER OFF\nDECLARE @sql varchar(max) = \"\ndeclare @p_start_time datetime2;\ndeclare @p_end_time datetime2;\n\nselect @p_start_time = st.local_time, @p_end_time = et.local_time \nfrom dbo.utc2local($__timeFrom()) as st join dbo.utc2local($__timeTo()) et on 1 = 1;\n\nselect /* Grafana => CPU */\n\t\tl2u.utc_time as time,\n\t\tsystem_cpu_utilization as OS,\n\t\tsql_cpu_utilization as [SqlServer]\nFROM (\n\tselect collection_time,\tsystem_cpu_utilization, sql_cpu_utilization\n\tfrom dbo.dm_os_ring_buffers as orb\n\tcross apply dbo.local2utc(collection_time) as l2u\n\twhere collection_time BETWEEN @p_start_time AND @p_end_time\n\t--\n\tunion all\n\t--\n\tselect collection_time,\tsystem_cpu_utilization, sql_cpu_utilization\n\tfrom dbo.dm_os_ring_buffers_aggregated\n\twhere collection_time BETWEEN @p_start_time AND @p_end_time\n) AS data\ncross apply dbo.local2utc(collection_time) as l2u\norder by collection_time;\n\"\nSET QUOTED_IDENTIFIER ON\nIF ('$server' = SERVERPROPERTY('ServerName'))\nBEGIN\n  EXEC (@sql);\nEND;\nELSE\nBEGIN\n  EXEC (@sql) AT [$server];\nEND;",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [
+            {
+              "$$hashKey": "object:238",
+              "colorMode": "critical",
+              "fill": true,
+              "line": true,
+              "op": "gt",
+              "value": 90,
+              "yaxis": "left"
+            },
+            {
+              "$$hashKey": "object:244",
+              "colorMode": "warning",
+              "fill": false,
+              "line": true,
+              "op": "gt",
+              "value": 80,
+              "yaxis": "left"
+            }
+          ],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "CPU",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:85",
+              "format": "percent",
+              "label": "% CPU",
+              "logBase": 1,
+              "max": "100",
+              "min": "0",
+              "show": true
+            },
+            {
+              "$$hashKey": "object:86",
+              "decimals": null,
+              "format": "short",
+              "label": "% CPU",
+              "logBase": 1,
+              "max": "100",
+              "min": "0",
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": true,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "Trend - CPU Utilization",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": "${DS_MSI}",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 6
+      },
+      "id": 59,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_MSI}",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 5,
+            "w": 24,
+            "x": 0,
+            "y": 7
+          },
+          "hiddenSeries": false,
+          "id": 57,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "format": "time_series",
+              "hide": false,
+              "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\r\nSET QUOTED_IDENTIFIER OFF\r\nDECLARE @sql varchar(max) = \"\r\ndeclare @p_start_time datetime2;\r\ndeclare @p_end_time datetime2;\r\ndeclare @object_name varchar(255);\r\nset @object_name = (case when @@SERVICENAME = 'MSSQLSERVER' then 'SQLServer' else 'MSSQL$'+@@SERVICENAME end);\r\n\r\nselect @p_start_time = st.local_time, @p_end_time = et.local_time \r\nfrom dbo.utc2local($__timeFrom()) as st join dbo.utc2local($__timeTo()) et on 1 = 1;\r\n\r\nSELECT l2u.utc_time as time, [Memory Grants Pending] = cntr_value\r\nFROM (\r\n\t\tSELECT\tcollection_time, cntr_value\r\n\t\tFROM\tdbo.dm_os_performance_counters\r\n\t\tWHERE\t(collection_time BETWEEN @p_start_time AND @p_end_time) \r\n\t\t\tAND object_name = (@object_name+':Memory Manager') and counter_name = 'Memory Grants Pending'\r\n\t\t--\r\n\t\tUNION ALL\r\n\t\t--\r\n\t\tSELECT\tcollection_time, cntr_value\r\n\t\tFROM\tdbo.dm_os_performance_counters_aggregated\r\n\t\tWHERE\t(collection_time BETWEEN @p_start_time AND @p_end_time) \r\n\t\t\tAND object_name = (@object_name+':Memory Manager') and counter_name = 'Memory Grants Pending'\r\n) AS data\r\ncross apply dbo.local2utc(collection_time) as l2u\r\norder by collection_time;\r\n\"\r\nSET QUOTED_IDENTIFIER ON\r\nIF ('$server' = SERVERPROPERTY('ServerName'))\r\nBEGIN\r\n  EXEC (@sql);\r\nEND;\r\nELSE\r\nBEGIN\r\n  EXEC (@sql) AT [$server];\r\nEND;",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [
+            {
+              "$$hashKey": "object:360",
+              "colorMode": "warning",
+              "fill": false,
+              "line": true,
+              "op": "gt",
+              "value": 0,
+              "yaxis": "left"
+            },
+            {
+              "$$hashKey": "object:366",
+              "colorMode": "critical",
+              "fill": true,
+              "line": true,
+              "op": "gt",
+              "value": 2,
+              "yaxis": "left"
+            }
+          ],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Memory Grants Pending",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:328",
+              "format": "short",
+              "label": null,
+              "logBase": 2,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:329",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "Trend - Memory Grants Pending",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": "${DS_MSI}",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
+      "id": 29,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_MSI}",
+          "description": "https://sqlperformance.com/2014/10/sql-performance/knee-jerk-page-life-expectancy",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "unit": "s"
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 6,
+            "w": 24,
+            "x": 0,
+            "y": 4
+          },
+          "hiddenSeries": false,
+          "id": 8,
+          "legend": {
+            "avg": false,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\nSET QUOTED_IDENTIFIER OFF\nDECLARE @sql varchar(max) = \"\ndeclare @p_start_time datetime2;\ndeclare @p_end_time datetime2;\ndeclare @object_name varchar(255);\nset @object_name = (case when @@SERVICENAME = 'MSSQLSERVER' then 'SQLServer' else 'MSSQL$'+@@SERVICENAME end);\n\nselect @p_start_time = st.local_time, @p_end_time = et.local_time \nfrom dbo.utc2local($__timeFrom()) as st join dbo.utc2local($__timeTo()) et on 1 = 1;\n\nSELECT l2u.utc_time as time, page_life_expectancy = cntr_value\nFROM (\n\t\tSELECT\tcollection_time, cntr_value\n\t\tFROM\tdbo.dm_os_performance_counters\n\t\tWHERE\t(collection_time BETWEEN @p_start_time AND @p_end_time) \n\t\t\tAND object_name = (@object_name+':Buffer Manager') AND counter_name = 'Page life expectancy'\n\t\t--\n\t\tUNION ALL\n\t\t--\n\t\tSELECT\tcollection_time, cntr_value\n\t\tFROM\tdbo.dm_os_performance_counters_aggregated\n\t\tWHERE\t(collection_time BETWEEN @p_start_time AND @p_end_time) \n\t\t\tAND object_name = (@object_name+':Buffer Manager') AND counter_name = 'Page life expectancy'\n) AS data\ncross apply dbo.local2utc(collection_time) as l2u\norder by collection_time;\n\"\nSET QUOTED_IDENTIFIER ON\nIF ('$server' = SERVERPROPERTY('ServerName'))\nBEGIN\n  EXEC (@sql);\nEND;\nELSE\nBEGIN\n  EXEC (@sql) AT [$server];\nEND;",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [
+            {
+              "$$hashKey": "object:672",
+              "colorMode": "critical",
+              "fill": true,
+              "line": true,
+              "op": "lt",
+              "value": 600,
+              "yaxis": "left"
+            }
+          ],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Page Life Expectancy",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:624",
+              "format": "s",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:625",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "Trend - Page Life Expectancy",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": "${DS_MSI}",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 27,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_MSI}",
+          "description": "https://sqlperformance.com/2014/10/sql-performance/knee-jerk-page-life-expectancy",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 6,
+            "w": 24,
+            "x": 0,
+            "y": 9
+          },
+          "hiddenSeries": false,
+          "id": 18,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": true,
+            "hideZero": false,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\r\nSET QUOTED_IDENTIFIER OFF\r\nDECLARE @sql varchar(max) = \"\r\ndeclare @p_start_time datetime2;\r\ndeclare @p_end_time datetime2;\r\ndeclare @object_name varchar(255);\r\n\r\nselect @p_start_time = st.local_time, @p_end_time = et.local_time \r\nfrom dbo.utc2local($__timeFrom()) as st join dbo.utc2local($__timeTo()) et on 1 = 1;\r\n\r\nset @object_name = (case when @@SERVICENAME = 'MSSQLSERVER' then 'SQLServer' else 'MSSQL$'+@@SERVICENAME end);\r\n\r\nSELECT l2u.utc_time as time, cntr_value as [Batch Requests/sec]\r\nFROM (\r\n\t\tselect collection_time, cntr_value\r\n\t\tfrom dbo.dm_os_performance_counters\r\n\t\twhere (collection_time BETWEEN @p_start_time AND @p_end_time)\r\n\t\t\tand object_name = (@object_name+':SQL Statistics') and counter_name in ('Batch Requests/sec')\r\n\t\t--\r\n\t\tunion all\r\n\t\t--\r\n\t\tselect collection_time, cntr_value\r\n\t\tfrom dbo.dm_os_performance_counters_aggregated\r\n\t\twhere (collection_time BETWEEN @p_start_time AND @p_end_time)\r\n\t\t\tand object_name = (@object_name+':SQL Statistics') and counter_name in ('Batch Requests/sec')\r\n) AS data\r\ncross apply dbo.local2utc(collection_time) as l2u\r\norder by collection_time;\r\n\"\r\nSET QUOTED_IDENTIFIER ON\r\nIF ('$server' = SERVERPROPERTY('ServerName'))\r\nBEGIN\r\n  EXEC (@sql);\r\nEND;\r\nELSE\r\nBEGIN\r\n  EXEC (@sql) AT [$server];\r\nEND;",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Batch Requests Per Second",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:85",
+              "format": "short",
+              "label": "",
+              "logBase": 2,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:86",
+              "decimals": null,
+              "format": "short",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": true,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "Trend - Batch Request/Sec",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": "${DS_MSI}",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 31,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_MSI}",
+          "description": "https://sqlperformance.com/2014/10/sql-performance/knee-jerk-page-life-expectancy",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "unit": "decmbytes"
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 5
+          },
+          "hiddenSeries": false,
+          "id": 22,
+          "legend": {
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\nSET QUOTED_IDENTIFIER OFF\nDECLARE @sql varchar(max) = \"\ndeclare @p_start_time datetime2;\ndeclare @p_end_time datetime2;\n\nselect @p_start_time = st.local_time, @p_end_time = et.local_time \nfrom dbo.utc2local($__timeFrom()) as st join dbo.utc2local($__timeTo()) et on 1 = 1;\n\n;with t_page_faults as\n(\n\tselect collection_time, page_fault_count, LAG(page_fault_count) OVER ( ORDER BY collection_time ) as page_fault_count__prev\n\t\t\t,LAG(collection_time) OVER ( ORDER BY collection_time ) as collection_time_prev\t\t\t\n\tfrom [dbo].[dm_os_process_memory] \n\twhere collection_time BETWEEN @p_start_time AND @p_end_time\n\t--\n\tunion all\n\t--\n\tselect collection_time, page_fault_count, LAG(page_fault_count) OVER ( ORDER BY collection_time ) as page_fault_count__prev\n\t\t\t,LAG(collection_time) OVER ( ORDER BY collection_time ) as collection_time_prev\t\t\t\n\tfrom [dbo].[dm_os_process_memory_aggregated] \n\twhere collection_time BETWEEN @p_start_time AND @p_end_time\n)\nselect\tl2u.utc_time as time, --page_fault_count, DATEDIFF(second,collection_time_prev,collection_time) as interval_seconds,\n\t\tpage_faults_MB =\n\t\t((case when page_fault_count__prev is null then 0\n\t\t\t when page_fault_count < page_fault_count__prev then page_fault_count\n\t\t\t when page_fault_count >= page_fault_count__prev then page_fault_count-page_fault_count__prev\n\t\t\t else null\n\t\t\t end) * 8.0)/1024 -- Page Fault in MB\nfrom t_page_faults\ncross apply dbo.local2utc(collection_time) as l2u\norder by collection_time;\n\"\nSET QUOTED_IDENTIFIER ON\nIF ('$server' = SERVERPROPERTY('ServerName'))\nBEGIN\n  EXEC (@sql);\nEND;\nELSE\nBEGIN\n  EXEC (@sql) AT [$server];\nEND;",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "SqlServer: Page Faults (MB)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:185",
+              "format": "decmbytes",
+              "label": null,
+              "logBase": 2,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:186",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "Trend - SqlServer Page Faults",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": "${DS_MSI}",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 47,
+      "panels": [
+        {
+          "datasource": "${DS_MSI}",
+          "description": "WaitWaits for selected duration",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": null
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "CollectionTime"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 186
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Duration_S"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 93
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "WaitType"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 186
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Duration"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 94
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Percentage"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 118
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Wait_S"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 116
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Resource_S"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 126
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Signal_S"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 109
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "WaitCount"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 97
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "time"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 181
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "%"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 64
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 11,
+            "w": 24,
+            "x": 0,
+            "y": 12
+          },
+          "id": 49,
+          "options": {
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "7.1.4",
+          "scopedVars": {
+            "server": {
+              "selected": true,
+              "text": "MSI",
+              "value": "MSI"
+            }
+          },
+          "targets": [
+            {
+              "alias": "",
+              "format": "table",
+              "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\r\nSET QUOTED_IDENTIFIER OFF\r\nDECLARE @sql varchar(max) = \"\r\nset nocount on;\r\n/*\tGet @start_time & @end_time from user/Grafana\r\n\tGet times when WaitStats was flushed\r\n\tDivide wait stats for the intervals\r\n*/\r\nDECLARE @server_name varchar(256);\r\nDECLARE @start_time datetime2;\r\nDECLARE @end_time datetime2;\r\n--set @server_name = '$server';\r\n--set @start_time = DATEADD(MINUTE,-180,GETDATE());\r\n--set @end_time = GETDATE();\r\nselect @start_time = st.local_time, @end_time = et.local_time \r\nfrom dbo.utc2local($__timeFrom()) as st join dbo.utc2local($__timeTo()) et on 1 = 1;\r\n\r\nDECLARE @verbose bit = 0;\r\n\r\nif OBJECT_ID('tempdb..#wait_stats_lower_bounds') is not null\r\n\tdrop table tempdb..#wait_stats_lower_bounds;\r\nwith T_waits_ranges_lower_bounds as (\r\n\tselect *\r\n\tfrom (\r\n\t\tSELECT si.wait_stats_cleared_time as point_in_time\r\n\t\tFROM dbo.dm_os_sys_info AS si\r\n\t\tWHERE 1 = 1\r\n\t\t--and pc.server_name = @server_name\r\n\t\tand collection_time BETWEEN @start_time AND @end_time\r\n\t\t--\r\n\t\tunion\r\n\t\t--\r\n\t\tselect point_in_time\r\n\t\tfrom (values (@start_time),(@end_time)) Times (point_in_time)\r\n\t) as ranges\r\n)\r\nselect /* Get times where WaitStats was Cleared */\r\n\t   IDENTITY(int,1,1) as id, \r\n\t   point_in_time\r\ninto #wait_stats_lower_bounds\r\nfrom T_waits_ranges_lower_bounds\r\norder by point_in_time asc;\r\n\r\nif OBJECT_ID('tempdb..#wait_stats_time_range') is not null\r\n\tdrop table tempdb..#wait_stats_time_range;\r\nselect l.id as range_id, l.point_in_time as range_lower_time, u.point_in_time as range_upper_time\r\ninto #wait_stats_time_range\r\nfrom #wait_stats_lower_bounds as l\r\njoin #wait_stats_lower_bounds as u on u.id = l.id + 1\r\norder by range_id;\r\n\r\n\r\nif @verbose = 1\r\nbegin\r\n\tselect [RunningQuery] = '#wait_stats_lower_bounds', * from #wait_stats_lower_bounds;\r\n\tselect [RunningQuery] = '#wait_stats_time_range', * from #wait_stats_time_range;\r\n\tselect count(distinct Collection_Time) as WaitStats_Sample_Counts from [dbo].[WaitStats];\r\nend\r\n\r\nIF OBJECT_ID('tempdb..#Wait_Stats_Delta') IS NOT NULL\r\n\tDROP TABLE #Wait_Stats_Delta;\r\nCREATE TABLE #Wait_Stats_Delta\r\n(\r\n\t--[id_T1] [int] NULL,\r\n\t--[id_T2] [int] NULL,\r\n\t--[point_in_time_T1] [datetime2](7) NULL,\r\n\t--[point_in_time_T2] [datetime2](7) NULL,\r\n\t--[Collection_Time_T1] [datetime2](7) NULL,\r\n\t--[Collection_Time_T2] [datetime2](7) NULL,\r\n\t[RowNum] [int] NOT NULL,\r\n\t[Collection_Time] [datetime2](7) NOT NULL,\r\n\t[Collection_Time_Duration_Seconds] [bigint] NOT NULL,\r\n\t[WaitType] [nvarchar](120) NOT NULL,\r\n\t[Wait_S] [decimal](15, 2) NULL,\r\n\t[Resource_S] [decimal](15, 2) NULL,\r\n\t[Signal_S] [decimal](15, 2) NULL,\r\n\t[WaitCount] [bigint] NULL,\r\n\t[Percentage] [decimal](5,2) NULL,\r\n\t[AvgWait_S] [decimal](35, 22) NULL,\r\n\t[AvgRes_S] [decimal](35, 22) NULL,\r\n\t[AvgSig_S] [decimal](35, 22) NULL\r\n)\r\n\r\ndeclare @l_id int\r\n\t\t,@l_point_in_time datetime2\r\n\t\t,@l_counter int = 1\r\n\t\t,@l_counter_max int;\r\n\r\nselect @l_counter_max = max(range_id) from #wait_stats_time_range;\r\n/* Loop for N-1 times, where N =  point in times for range calculation */\r\nwhile @l_counter <= @l_counter_max -- execute for N-1 times\r\nbegin\r\n\r\n\tif OBJECT_ID('tempdb..#wait_stats_range_lower') is not null\r\n\t\tdrop table #wait_stats_range_lower;\r\n\tselect  /*\tGet wait stats for start time of the time range.\r\n\t\t\t*/\r\n\t\t\tid = r.range_id, r.range_lower_time, r.range_upper_time,\r\n\t\t\tws.Collection_Time, \r\n\t\t\tws.WaitType, \r\n\t\t\tws.Wait_S, ws.Resource_S, ws.Signal_S, ws.WaitCount, ws.Percentage\r\n\t\t\t--,ws.AvgWait_S, ws.AvgRes_S, ws.AvgSig_S\r\n\t\t\t,[condition] = (case when (@l_counter <> 1) and (@l_counter <>  @l_counter_max) -- Intermediate range\r\n\t\t\t\t\t\t\t\t\t\tthen 'Intermediate range'\r\n\t\t\t\t\t\t\t\t\t\twhen (@l_counter = 1) and (@l_counter = @l_counter_max) -- 1st/last, and only range\r\n\t\t\t\t\t\t\t\t\t\tthen '1st/last, and only range'\r\n\t\t\t\t\t\t\t\t\t\twhen (@l_counter = 1) and (@l_counter <> @l_counter_max) -- 1st and intermediate range\r\n\t\t\t\t\t\t\t\t\t\tthen '1st and intermediate range'\r\n\t\t\t\t\t\t\t\t\t\twhen (@l_counter = @l_counter_max) and (@l_counter - 1 <> 0) -- last and intermediate\r\n\t\t\t\t\t\t\t\t\t\tthen 'last and intermediate'\r\n\t\t\t\t\t\t\t\t\telse null\r\n\t\t\t\t\t\t\t\t\tend)\r\n\tinto #wait_stats_range_lower\r\n\tfrom #wait_stats_time_range as r, [dbo].[WaitStats] AS ws with (nolock)\r\n\twhere r.range_id = @l_counter /* loop filter */\r\n\t\tand ws.Collection_Time = (\tcase when (@l_counter <> 1) and (@l_counter <>  @l_counter_max) -- Intermediate range\r\n\t\t\t\t\t\t\t\t\t\tthen (select MIN(wsi.Collection_Time) as Collection_Time from [dbo].[WaitStats] as wsi with (nolock) where wsi.Collection_Time > r.range_lower_time)\r\n\t\t\t\t\t\t\t\t\t\twhen (@l_counter = 1) and (@l_counter = @l_counter_max) -- 1st/last, and only range\r\n\t\t\t\t\t\t\t\t\t\tthen (select MIN(wsi.Collection_Time) as Collection_Time from [dbo].[WaitStats] as wsi with (nolock) where wsi.Collection_Time >= r.range_lower_time)\r\n\t\t\t\t\t\t\t\t\t\twhen (@l_counter = 1) and (@l_counter <> @l_counter_max) -- 1st and intermediate range\r\n\t\t\t\t\t\t\t\t\t\tthen (select MIN(wsi.Collection_Time) as Collection_Time from [dbo].[WaitStats] as wsi with (nolock) where wsi.Collection_Time >= r.range_lower_time)\r\n\t\t\t\t\t\t\t\t\t\twhen (@l_counter = @l_counter_max) and (@l_counter - 1 <> 0) -- last and intermediate\r\n\t\t\t\t\t\t\t\t\t\tthen (select MIN(wsi.Collection_Time) as Collection_Time from [dbo].[WaitStats] as wsi with (nolock) where wsi.Collection_Time > r.range_lower_time)\r\n\t\t\t\t\t\t\t\t\telse null\r\n\t\t\t\t\t\t\t\t\tend\r\n\t\t\t\t\t\t\t\t);\r\n\t\r\n\tif OBJECT_ID('tempdb..#wait_stats_range_upper') is not null\r\n\t\tdrop table #wait_stats_range_upper;\r\n\tselect  /*\tGet wait stats for start time of the time range.\r\n\t\t\t*/\r\n\t\t\tid = r.range_id, r.range_lower_time, r.range_upper_time,\r\n\t\t\tws.Collection_Time, \r\n\t\t\tws.WaitType, \r\n\t\t\tws.Wait_S, ws.Resource_S, ws.Signal_S, ws.WaitCount, ws.Percentage\r\n\t\t\t--,ws.AvgWait_S, ws.AvgRes_S, ws.AvgSig_S\r\n\t\t\t,[condition] = (case when (@l_counter <> 1) and (@l_counter <>  @l_counter_max) -- Intermediate range\r\n\t\t\t\t\t\t\t\t\t\tthen 'Intermediate range'\r\n\t\t\t\t\t\t\t\t\t\twhen (@l_counter = 1) and (@l_counter = @l_counter_max) -- 1st/last, and only range\r\n\t\t\t\t\t\t\t\t\t\tthen '1st/last, and only range'\r\n\t\t\t\t\t\t\t\t\t\twhen (@l_counter = 1) and (@l_counter <> @l_counter_max) -- 1st and intermediate range\r\n\t\t\t\t\t\t\t\t\t\tthen '1st and intermediate range'\r\n\t\t\t\t\t\t\t\t\t\twhen (@l_counter = @l_counter_max) and (@l_counter - 1 <> 0) -- last and intermediate\r\n\t\t\t\t\t\t\t\t\t\tthen 'last and intermediate'\r\n\t\t\t\t\t\t\t\t\telse null\r\n\t\t\t\t\t\t\t\t\tend)\r\n\tinto #wait_stats_range_upper\r\n\tfrom #wait_stats_time_range as r, [dbo].[WaitStats] AS ws with (nolock)\r\n\twhere r.range_id = @l_counter /* loop filter */\r\n\t\tand ws.Collection_Time = (\tcase when (@l_counter <> 1) and (@l_counter <>  @l_counter_max) -- Intermediate range\r\n\t\t\t\t\t\t\t\t\t\tthen (select MAX(wsi.Collection_Time) as Collection_Time from [dbo].[WaitStats] as wsi with (nolock) where wsi.Collection_Time < r.range_upper_time)\r\n\t\t\t\t\t\t\t\t\t\twhen (@l_counter = 1) and (@l_counter = @l_counter_max) -- 1st/last, and only range\r\n\t\t\t\t\t\t\t\t\t\tthen (select MAX(wsi.Collection_Time) as Collection_Time from [dbo].[WaitStats] as wsi with (nolock) where wsi.Collection_Time <= r.range_upper_time)\r\n\t\t\t\t\t\t\t\t\t\twhen (@l_counter = 1) and (@l_counter <> @l_counter_max) -- 1st and intermediate range\r\n\t\t\t\t\t\t\t\t\t\tthen (select MAX(wsi.Collection_Time) as Collection_Time from [dbo].[WaitStats] as wsi with (nolock) where wsi.Collection_Time < r.range_upper_time)\r\n\t\t\t\t\t\t\t\t\t\twhen (@l_counter = @l_counter_max) and (@l_counter - 1 <> 0) -- last and intermediate\r\n\t\t\t\t\t\t\t\t\t\tthen (select MAX(wsi.Collection_Time) as Collection_Time from [dbo].[WaitStats] as wsi with (nolock) where wsi.Collection_Time <= r.range_upper_time)\r\n\t\t\t\t\t\t\t\t\telse null\r\n\t\t\t\t\t\t\t\t\tend\r\n\t\t\t\t\t\t\t\t);\r\n\r\n\tif @verbose = 1\r\n\tbegin\r\n\t\tselect [@l_counter] = @l_counter, [@l_counter_max] = @l_counter_max;\r\n\t\tselect [RunningQuery] = '#wait_stats_range_lower', * from #wait_stats_range_lower;\r\n\t\tselect [RunningQuery] = '#wait_stats_range_upper', * from #wait_stats_range_upper;\r\n\tend\r\n\t\r\n\t\r\n\t;with T_Waits_Delta AS (\r\n\t\tSELECT Collection_Time, Collection_Time_Duration_Seconds, WaitType, Wait_S, Resource_S, Signal_S, WaitCount,\r\n\t\t\t\t[Percentage],\r\n\t\t\t\tAvgWait_S = Wait_S/WaitCount, \r\n\t\t\t\tAvgRes_S = Resource_S/WaitCount, \r\n\t\t\t\tAvgSig_S = Signal_S/WaitCount\r\n\t\t--INTO tempdb..Wait_Stats_Delta\r\n\t\tFROM (\r\n\t\t\t\tSELECT --id_T1 = T1.id, id_T2 = T2.id,\r\n\t\t\t\t\t\t--point_in_time_T1 = T1.point_in_time, point_in_time_T2 = T2.point_in_time,\r\n\t\t\t\t\t\t--Collection_Time_T1 = T1.Collection_Time, Collection_Time_T2 = T2.Collection_Time,\r\n\t\t\t\t\t\t[RunningQuery] = 'Wait_Stats_Delta',\r\n\t\t\t\t\t\tCollection_Time = COALESCE(T2.Collection_Time,T1.Collection_Time),\r\n\t\t\t\t\t\tCollection_Time_Duration_Seconds = DATEDIFF(second,T1.Collection_Time,T2.Collection_Time),\r\n\t\t\t\t\t\tWaitType = COALESCE(T1.WaitType,T2.WaitType),\r\n\t\t\t\t\t\tWait_S = ISNULL(T2.Wait_S,0.0) - ISNULL(T1.Wait_S,0.0),\r\n\t\t\t\t\t\tResource_S = ISNULL(T2.Resource_S,0.0) - ISNULL(T1.Resource_S,0.0),\r\n\t\t\t\t\t\tSignal_S = ISNULL(T2.Signal_S,0.0) - ISNULL(T1.Signal_S,0.0),\r\n\t\t\t\t\t\tWaitCount = ISNULL(T2.WaitCount,0.0) - ISNULL(T1.WaitCount,0.0),\r\n\t\t\t\t\t\t[Percentage] = NULL\r\n\t\t\t\tFROM #wait_stats_range_lower as T1 full outer join #wait_stats_range_upper as T2 on T2.WaitType = T1.WaitType\r\n\t\t\t) as waits\r\n\t\tWHERE 1 = 1\r\n\t\t\tAND WaitCount > 0\r\n\t)\r\n\t\r\n\tINSERT #Wait_Stats_Delta\r\n\tSELECT ROW_NUMBER() OVER(ORDER BY Wait_S DESC, Resource_S DESC) AS [RowNum],\r\n\t\t\tCollection_Time = COALESCE(dur.Collection_Time,d.Collection_Time), \r\n\t\t\tCollection_Time_Duration_Seconds = COALESCE(dur.Collection_Time_Duration_Seconds,d.Collection_Time_Duration_Seconds, r.Range_Duration_Seconds), \r\n\t\t\tWaitType, Wait_S, Resource_S, Signal_S, WaitCount,\r\n\t\t\t\t[Percentage] = (Wait_S*100.0)/SUM(Wait_S)OVER(),\r\n\t\t\t\tAvgWait_S, AvgRes_S, AvgSig_S\r\n\tFROM T_Waits_Delta as d\r\n\tJOIN (select max(Collection_Time_Duration_Seconds) as Collection_Time_Duration_Seconds, max(Collection_Time) as Collection_Time from T_Waits_Delta) as dur ON 1 = 1\r\n\tJOIN (select DATEDIFF(second,r.range_lower_time,r.range_upper_time) AS Range_Duration_Seconds from #wait_stats_time_range as r where r.range_id = @l_counter) as r ON 1 = 1\r\n\tWHERE 1 = 1\r\n\t\tAND Wait_S >= 0.0\r\n\tORDER BY Wait_S DESC;\t\r\n\t\r\n\r\n\tset @l_counter += 1;\r\nend\r\n\r\nSELECT\t--dbo.local2utc(CAST(W1.Collection_Time AS smalldatetime)) as [time],\r\n\t\tl2u.utc_time as [time],\r\n\t\tMAX ([W1].WaitType) AS [WaitType],\r\n\t\tCAST (MAX ([W1].[Percentage]) AS DECIMAL (5,2)) AS [Percentage],\r\n\t\t(select duration from dbo.time2duration( cast(MAX([W1].Wait_S) as int), 's' )) AS [Wait_S],\r\n\t\t--t2d_w.duration as [Wait_S],\r\n\t\t----CAST (MAX ([W1].Resource_S) AS DECIMAL (16,2)) AS [Resource_S],\r\n\t\t--t2d_r.duration as [Resource_S],\r\n\t\t(select duration from dbo.time2duration( cast(MAX([W1].Resource_S) as int), 's' )) AS [Resource_S],\r\n\t\t--CAST (MAX ([W1].Signal_S) AS DECIMAL (16,2)) AS [Signal_S],\r\n\t\t(select duration from dbo.time2duration( cast(MAX([W1].Signal_S) as int), 's' )) AS [Signal_S],\r\n\t\t--t2d_s.duration as [Signal_S],\r\n\t\tMAX ([W1].[WaitCount]) AS [WaitCount],\r\n\t\tCAST ((MAX ([W1].Wait_S) / MAX ([W1].[WaitCount])) AS DECIMAL (16,4)) AS [AvgWait_S],\r\n\t\tCAST ((MAX ([W1].Resource_S) / MAX ([W1].[WaitCount])) AS DECIMAL (16,4)) AS [AvgRes_S],\r\n\t\tCAST ((MAX ([W1].Signal_S) / MAX ([W1].[WaitCount])) AS DECIMAL (16,4)) AS [AvgSig_S]\r\n\t\t--,CAST ('https://www.sqlskills.com/help/waits/' + MAX ([W1].[wait_type]) as XML) AS [Help/Info URL]\r\nFROM #Wait_Stats_Delta AS [W1]\r\nINNER JOIN #Wait_Stats_Delta AS [W2] ON W1.Collection_Time = W2.Collection_Time AND W2.[RowNum] <= [W1].[RowNum]\r\ncross apply dbo.local2utc([W1].[Collection_Time]) as l2u\r\n--cross apply dbo.time2duration( cast(MAX([W1].Wait_S) as int), 's' ) as t2d_w\r\n--cross apply dbo.time2duration( cast(MAX([W1].Resource_S) as int), 's' ) as t2d_r\r\n--cross apply dbo.time2duration( cast(MAX([W1].Signal_S) as int), 's' ) as t2d_s\r\n--GROUP BY [W1].[Collection_Time], [W1].[RowNum]\r\nGROUP BY l2u.utc_time, [W1].[RowNum]\r\nHAVING SUM ([W2].[Percentage]) - MAX( [W1].[Percentage] ) < 95 -- percentage threshold\r\nORDER BY [time] asc, [Percentage] desc;\r\n\"\r\nSET QUOTED_IDENTIFIER ON\r\nIF ('$server' = SERVERPROPERTY('ServerName'))\r\nBEGIN\r\n  EXEC (@sql);\r\nEND;\r\nELSE\r\nBEGIN\r\n  EXEC (@sql) AT [$server];\r\nEND;",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Wait Stats - Delta",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {},
+                "indexByName": {},
+                "renameByName": {
+                  "AvgRes_S": "Avg Res Wait (Sec)",
+                  "AvgSig_S": "Avg Sig Wait (Sec)",
+                  "AvgWait_S": "Avg Wait (Sec)",
+                  "Percentage": "%",
+                  "Resource_S": "Resource Wait",
+                  "Signal_S": "Signal Wait",
+                  "WaitCount": "Wait Count",
+                  "WaitType": "Wait Type",
+                  "Wait_S": "Wait Duration",
+                  "time": "Time"
+                }
+              }
+            }
+          ],
+          "transparent": true,
+          "type": "table"
+        }
+      ],
+      "repeat": "server",
+      "title": "Delta - Wait Stats",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": "${DS_MSI}",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "id": 45,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_MSI}",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "unit": "Bps"
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 20
+          },
+          "hiddenSeries": false,
+          "id": 53,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sideWidth": null,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\nSET QUOTED_IDENTIFIER OFF\nDECLARE @sql varchar(max) = \"\ndeclare @p_start_time datetime2;\ndeclare @p_end_time datetime2;\n\nselect @p_start_time = st.local_time, @p_end_time = et.local_time \nfrom dbo.utc2local($__timeFrom()) as st join dbo.utc2local($__timeTo()) et on 1 = 1;\n\nselect l2u.utc_time as time, instance_name + '\\ --- ' + counter_name as instance_name, CAST(cntr_value AS FLOAT) as cntr_value\nFROM (\n\t\tselect collection_time, instance_name, counter_name, cntr_value\n\t\tfrom dbo.dm_os_performance_counters_nonsql as pc\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\n\t\t\tand [object_name] = 'LogicalDisk'\n\t\t\tand counter_name in ('Disk Bytes/sec')\n\t\t\tand ( instance_name <> '_Total' and instance_name not like 'HarddiskVolume%' )\n\t\t--\n\t\tunion all\n\t\t--\n\t\tselect collection_time, instance_name, counter_name, cntr_value\n\t\tfrom dbo.dm_os_performance_counters_nonsql_aggregated as pc\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\n\t\t\tand [object_name] = 'LogicalDisk'\n\t\t\tand counter_name in ('Disk Bytes/sec')\n\t\t\tand ( instance_name <> '_Total' and instance_name not like 'HarddiskVolume%' )\n) AS data\ncross apply dbo.local2utc(collection_time) as l2u\norder by collection_time;\n\"\nSET QUOTED_IDENTIFIER ON\nIF ('$server' = SERVERPROPERTY('ServerName'))\nBEGIN\n  EXEC (@sql);\nEND;\nELSE\nBEGIN\n  EXEC (@sql) AT [$server];\nEND;",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Disk Utilization",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:130",
+              "format": "Bps",
+              "label": null,
+              "logBase": 2,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:131",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_MSI}",
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "unit": "s"
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 28
+          },
+          "hiddenSeries": false,
+          "id": 51,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sideWidth": null,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\nSET QUOTED_IDENTIFIER OFF\nDECLARE @sql varchar(max) = \"\ndeclare @p_start_time datetime2;\ndeclare @p_end_time datetime2;\n\nselect @p_start_time = st.local_time, @p_end_time = et.local_time \nfrom dbo.utc2local($__timeFrom()) as st join dbo.utc2local($__timeTo()) et on 1 = 1;\n\nSELECT l2u.utc_time as time, instance_name + '\\ --- ' + counter_name as instance_name, CAST(cntr_value AS FLOAT) as cntr_value\nFROM (\n\tselect pc.collection_time, pc.instance_name, counter_name, cntr_value\n\tfrom dbo.dm_os_performance_counters_nonsql as pc\n\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\n\t\tand pc.[object_name] = 'LogicalDisk'\n\t\tand counter_name in ('Avg. Disk sec/Read','Avg. Disk sec/Write')\n\t\tand ( instance_name <> '_Total' and instance_name not like 'HarddiskVolume%' )\n\t--\n\tunion all\n\t--\n\tselect pc.collection_time, pc.instance_name, counter_name, cntr_value\n\tfrom dbo.dm_os_performance_counters_nonsql_aggregated as pc\n\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\n\t\tand pc.[object_name] = 'LogicalDisk'\n\t\tand counter_name in ('Avg. Disk sec/Read','Avg. Disk sec/Write')\n\t\tand ( instance_name <> '_Total' and instance_name not like 'HarddiskVolume%' )\n) AS data\ncross apply dbo.local2utc(collection_time) as l2u\norder by collection_time;\n\"\nSET QUOTED_IDENTIFIER ON\nIF ('$server' = SERVERPROPERTY('ServerName'))\nBEGIN\n  EXEC (@sql);\nEND;\nELSE\nBEGIN\n  EXEC (@sql) AT [$server];\nEND;",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Disk Latency",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:94",
+              "format": "s",
+              "label": null,
+              "logBase": 2,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:95",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "Trend - Disk Latency",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": "${DS_MSI}",
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 43,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_MSI}",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "unit": "Bps"
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 9,
+            "w": 24,
+            "x": 0,
+            "y": 9
+          },
+          "hiddenSeries": false,
+          "id": 55,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pluginVersion": "7.1.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\r\nSET QUOTED_IDENTIFIER OFF\r\nDECLARE @sql varchar(max) = \"\r\ndeclare @p_start_time datetime2;\r\ndeclare @p_end_time datetime2;\r\n\r\nselect @p_start_time = st.local_time, @p_end_time = et.local_time\r\nfrom dbo.utc2local($__timeFrom()) as st join dbo.utc2local($__timeTo()) et on 1 = 1;\r\n\r\nSELECT l2u.utc_time as time, instance_name, CAST(cntr_value AS FLOAT) as cntr_value\r\nFROM (\r\n\t\tselect collection_time, instance_name, counter_name, cntr_value\r\n\t\tfrom dbo.dm_os_performance_counters_nonsql as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.[object_name] = 'Network Interface'\r\n\t\t\tand counter_name in ('Bytes Total/sec')\r\n\t\t--\r\n\t\tunion all\r\n\t\t--\r\n\t\tselect collection_time, instance_name, counter_name, cntr_value\r\n\t\tfrom dbo.dm_os_performance_counters_nonsql_aggregated as pc\r\n\t\twhere ( collection_time BETWEEN @p_start_time AND @p_end_time )\r\n\t\t\tand pc.[object_name] = 'Network Interface'\r\n\t\t\tand counter_name in ('Bytes Total/sec')\r\n) AS data\r\ncross apply dbo.local2utc(collection_time) as l2u\r\norder by collection_time;\r\n\"\r\nSET QUOTED_IDENTIFIER ON\r\nIF ('$server' = SERVERPROPERTY('ServerName'))\r\nBEGIN\r\n  EXEC (@sql);\r\nEND;\r\nELSE\r\nBEGIN\r\n  EXEC (@sql) AT [$server];\r\nEND;",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Bytes Total/sec",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:364",
+              "format": "Bps",
+              "label": null,
+              "logBase": 2,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:365",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "Trend - Network Latency",
+      "type": "row"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 26,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_MSI}",
+        "definition": "select server_name\nfrom (values ('MSI')\n\t\t\t,('SQL-A')\n\t\t\t,('SQL-A\\V17')\n\t ) as servers (server_name);",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Server",
+        "multi": false,
+        "name": "server",
+        "options": [],
+        "query": "select server_name\nfrom (values ('MSI')\n\t\t\t,('SQL-A')\n\t\t\t,('SQL-A\\V17')\n\t ) as servers (server_name);",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "Monitoring - Live",
+  "uid": "Fg8Q_wSMz",
+  "version": 202
+}
