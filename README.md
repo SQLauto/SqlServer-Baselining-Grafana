@@ -94,3 +94,22 @@ Setup of baselining & visualization is divided into 2 parts:-
 	This completes part 01 of setting up baselining for SQL Server
 
 ### Part 02 - Configure Grafana for Visualization on baselined data
+
+For Grafana, I am using one SqlInstance as my **Inventory** (central) server. What this mean is, on this server, I'll create linked servers for all the server that required monitoring using Grafana.
+
+1. **Setup Inventory server**. Select one server as Inventory. Create linked Server for each instance that require monitoring through Grafana on your central server using 'Microsoft OLEDB Provider for SQL Server'. Here make sure to utilize readonly sql authenticated login \[grafana\] we created in [part 01 step 7](#).
+
+	![](https://github.com/imajaydwivedi/Images/blob/master/SqlServer-Baselining-Grafana/Inventory-Server-Linked-Servers.JPG) <br>
+	
+2. On grafana portal, create *data source* named **'Inventory'** with details of above step, and **\[grafana\]** login.
+
+	![](https://github.com/imajaydwivedi/Images/blob/master/SqlServer-Baselining-Grafana/Grafana-Inventory-DataSource.JPG) <br>
+	
+3. Finally, Create dashboards by importing below *.json files
+
+	> * [NonSql-Files/Grafana - Monitoring - Live - External Share.json](NonSql-Files/Grafana%20-%20Monitoring%20-%20Live%20-%20External%20Share.json)
+	> * [NonSql-Files/Grafana - Monitoring - Perfmon Counters - Quest Softwares - External Share.json](NonSql-Files/Grafana%20-%20Monitoring%20-%20Perfmon%20Counters%20-%20Quest%20Softwares%20-%20External%20Share.json)
+	
+	This should create the grafana dashboard according to settings of above json files.
+	
+	Thanks :smiley:. Subscribe for updates :thumbsup:
