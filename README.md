@@ -50,8 +50,19 @@ Setup of baselining & visualization is divided into 2 parts:-
 
 5. Prepare perfmon data collection:-<br>
 	1. Setup Perfmon data collector using downloaded script **perfmon-collector-logman.ps1**. Make sure to open script and change value for variable **$collector_root_directory**  as per Step 2). Save it.
-	2. Setup ODBC Data Source for SqlInstance. This should be done only once for each Windows Server box. In case of multiple SQL Server instances, choose one instance as ODBC destination.
-	3. Push perform data to SqlServer.
+	```Powershell
+	# Original line in script
+	$collector_root_directory = 'D:\MSSQL15.MSSQLSERVER\MSSQL\Perfmon';
+	# Update line as per need
+	$collector_root_directory = 'E:\Perfmon';
+	```
+	2. Create ODBC Data Source for SqlInstance. This should be done only once for each Windows Server box. In case of multiple SQL Server instances, choose one instance as ODBC destination.
+	```
+	# create dsn for Sql Server instance 'localhost' with windows authentication and default to [DBA] database
+	Add-OdbcDsn -Name "LocalSqlServer" -DriverName "SQL Server" -DsnType "System" -SetPropertyValue @("Server=localhost", "Trusted_Connection=Yes", "Database=DBA")
+	```
+	3. Push Perform data collector data to SqlServer using relog & dsn.
+	> [NonSql-Files/perfmon-collector-push-to-sqlserver.ps1](NonSql-Files/perfmon-collector-push-to-sqlserver.ps1)
 	
 6. Setup Default Mail profile
 	a) Make sure a public profile is set as 'Default profile' in Database Mail using Profile Security.
