@@ -62,7 +62,7 @@ Setup of baselining & visualization is divided into 2 parts:-
 	Add-OdbcDsn -Name "LocalSqlServer" -DriverName "SQL Server" -DsnType "System" -SetPropertyValue @("Server=localhost", "Trusted_Connection=Yes", "Database=DBA")
 	```
 	3. Push Perform data collector data to SqlServer using relog & dsn.
-	> [NonSql-Files/perfmon-collector-push-to-sqlserver.ps1](NonSql-Files/perfmon-collector-push-to-sqlserver.ps1)
+	> * [NonSql-Files/perfmon-collector-push-to-sqlserver.ps1](NonSql-Files/perfmon-collector-push-to-sqlserver.ps1)
 	
 6. Setup Default Mail profile
 	a) Make sure a public profile is set as 'Default profile' in Database Mail using Profile Security.
