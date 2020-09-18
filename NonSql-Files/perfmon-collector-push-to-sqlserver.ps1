@@ -1,8 +1,9 @@
 ﻿Import-Module dbatools;
-$collector_root_directory = 'E:\DBA\Perfmon';
+$collector_root_directory = 'E:\Perfmon';
 $data_collector_set_name = 'DBA';
 $dsn = 'LocalSqlServer';
 $DBAInventory = $env:COMPUTERNAME;
+$DBA_database = 'DBA';
 
 $data_collector_template_path = “$collector_root_directory\DBA_PerfMon_NonSQL_Collector_Template.xml”;
 $log_file_path = "$collector_root_directory\$($env:COMPUTERNAME)__"
@@ -20,7 +21,7 @@ else
 		 ) as a
 	full outer join (select CAST(NULL AS varchar(1024)) AS DisplayString) as d on 1 = 1;
 "@
-$last_log_file_imported = Invoke-DbaQuery -SqlInstance $DBAInventory -Query $tsql_last_log_file_imported | Select-Object -ExpandProperty DisplayString;
+$last_log_file_imported = Invoke-DbaQuery -SqlInstance $DBAInventory -Database $DBA_database -Query $tsql_last_log_file_imported | Select-Object -ExpandProperty DisplayString;
 
 $current_collector_state = logman -n $data_collector_set_name;
 $location_line = $current_collector_state | Where-Object {$_ -like 'Output Location:*'}

@@ -1,11 +1,11 @@
 USE [msdb]
 GO
 
-/****** Object:  Job [(dba) Collect Metrics]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Job [(dba) Collect Metrics]    Script Date: 19-Sep-20 12:27:06 AM ******/
 BEGIN TRANSACTION
 DECLARE @ReturnCode INT
 SELECT @ReturnCode = 0
-/****** Object:  JobCategory [Data Collector]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  JobCategory [Data Collector]    Script Date: 19-Sep-20 12:27:06 AM ******/
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'Data Collector' AND category_class=1)
 BEGIN
 EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'Data Collector'
@@ -25,7 +25,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'(dba) Collect Metrics',
 		@category_name=N'Data Collector', 
 		@owner_login_name=N'sa', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Collect Metrics - dm_os_sys_memory]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Collect Metrics - dm_os_sys_memory]    Script Date: 19-Sep-20 12:27:06 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Collect Metrics - dm_os_sys_memory', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
@@ -106,7 +106,7 @@ IF @_errorMessage IS NOT NULL
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Collect Metrics - dm_os_process_memory]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Collect Metrics - dm_os_process_memory]    Script Date: 19-Sep-20 12:27:06 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Collect Metrics - dm_os_process_memory', 
 		@step_id=2, 
 		@cmdexec_success_code=0, 
@@ -187,7 +187,7 @@ IF @_errorMessage IS NOT NULL
 		@database_name=N'master', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Collect Metrics - dm_os_performance_counters]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Collect Metrics - dm_os_performance_counters]    Script Date: 19-Sep-20 12:27:06 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Collect Metrics - dm_os_performance_counters', 
 		@step_id=3, 
 		@cmdexec_success_code=0, 
@@ -268,7 +268,7 @@ IF @_errorMessage IS NOT NULL
 		@database_name=N'master', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Collect Metrics - dm_os_ring_buffers]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Collect Metrics - dm_os_ring_buffers]    Script Date: 19-Sep-20 12:27:06 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Collect Metrics - dm_os_ring_buffers', 
 		@step_id=4, 
 		@cmdexec_success_code=0, 
@@ -349,7 +349,7 @@ IF @_errorMessage IS NOT NULL
 		@database_name=N'master', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Collect Metrics - dm_os_performance_counters_sampling]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Collect Metrics - dm_os_performance_counters_sampling]    Script Date: 19-Sep-20 12:27:06 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Collect Metrics - dm_os_performance_counters_sampling', 
 		@step_id=5, 
 		@cmdexec_success_code=0, 
@@ -455,11 +455,11 @@ QuitWithRollback:
 EndSave:
 GO
 
-/****** Object:  Job [(dba) Collect Metrics - dm_os_memory_clerks]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Job [(dba) Collect Metrics - dm_os_memory_clerks]    Script Date: 19-Sep-20 12:27:07 AM ******/
 BEGIN TRANSACTION
 DECLARE @ReturnCode INT
 SELECT @ReturnCode = 0
-/****** Object:  JobCategory [Data Collector]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  JobCategory [Data Collector]    Script Date: 19-Sep-20 12:27:07 AM ******/
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'Data Collector' AND category_class=1)
 BEGIN
 EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'Data Collector'
@@ -479,7 +479,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'(dba) Collect Metrics - dm_o
 		@category_name=N'Data Collector', 
 		@owner_login_name=N'sa', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Collect [dm_os_memory_clerks]]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Collect [dm_os_memory_clerks]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Collect [dm_os_memory_clerks]', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
@@ -585,11 +585,11 @@ QuitWithRollback:
 EndSave:
 GO
 
-/****** Object:  Job [(dba) Collect Metrics - dm_os_performance_counters_deprecated_features]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Job [(dba) Collect Metrics - dm_os_performance_counters_deprecated_features]    Script Date: 19-Sep-20 12:27:07 AM ******/
 BEGIN TRANSACTION
 DECLARE @ReturnCode INT
 SELECT @ReturnCode = 0
-/****** Object:  JobCategory [Data Collector]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  JobCategory [Data Collector]    Script Date: 19-Sep-20 12:27:07 AM ******/
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'Data Collector' AND category_class=1)
 BEGIN
 EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'Data Collector'
@@ -609,7 +609,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'(dba) Collect Metrics - dm_o
 		@category_name=N'Data Collector', 
 		@owner_login_name=N'sa', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Collect Metrics - Deprecated Features]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Collect Metrics - Deprecated Features]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Collect Metrics - Deprecated Features', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
@@ -715,11 +715,11 @@ QuitWithRollback:
 EndSave:
 GO
 
-/****** Object:  Job [(dba) Collect Metrics - dm_os_performance_counters_sampling]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Job [(dba) Collect Metrics - dm_os_performance_counters_sampling]    Script Date: 19-Sep-20 12:27:07 AM ******/
 BEGIN TRANSACTION
 DECLARE @ReturnCode INT
 SELECT @ReturnCode = 0
-/****** Object:  JobCategory [Data Collector]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  JobCategory [Data Collector]    Script Date: 19-Sep-20 12:27:07 AM ******/
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'Data Collector' AND category_class=1)
 BEGIN
 EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'Data Collector'
@@ -738,7 +738,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'(dba) Collect Metrics - dm_o
 		@category_name=N'Data Collector', 
 		@owner_login_name=N'sa', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [(dba) Collect Metrics]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [(dba) Collect Metrics]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'(dba) Collect Metrics', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
@@ -830,11 +830,11 @@ QuitWithRollback:
 EndSave:
 GO
 
-/****** Object:  Job [(dba) Collect Metrics - dm_os_ring_buffers]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Job [(dba) Collect Metrics - dm_os_ring_buffers]    Script Date: 19-Sep-20 12:27:07 AM ******/
 BEGIN TRANSACTION
 DECLARE @ReturnCode INT
 SELECT @ReturnCode = 0
-/****** Object:  JobCategory [Data Collector]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  JobCategory [Data Collector]    Script Date: 19-Sep-20 12:27:07 AM ******/
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'Data Collector' AND category_class=1)
 BEGIN
 EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'Data Collector'
@@ -854,7 +854,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'(dba) Collect Metrics - dm_o
 		@category_name=N'Data Collector', 
 		@owner_login_name=N'sa', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Collect-Metrics - dm_os_ring_buffers]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Collect-Metrics - dm_os_ring_buffers]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Collect-Metrics - dm_os_ring_buffers', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
@@ -945,11 +945,11 @@ QuitWithRollback:
 EndSave:
 GO
 
-/****** Object:  Job [(dba) Collect Metrics - dm_os_sys_info]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Job [(dba) Collect Metrics - dm_os_sys_info]    Script Date: 19-Sep-20 12:27:07 AM ******/
 BEGIN TRANSACTION
 DECLARE @ReturnCode INT
 SELECT @ReturnCode = 0
-/****** Object:  JobCategory [Data Collector]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  JobCategory [Data Collector]    Script Date: 19-Sep-20 12:27:07 AM ******/
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'Data Collector' AND category_class=1)
 BEGIN
 EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'Data Collector'
@@ -969,7 +969,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'(dba) Collect Metrics - dm_o
 		@category_name=N'Data Collector', 
 		@owner_login_name=N'sa', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Collect Metrics - dm_os_sys_info]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Collect Metrics - dm_os_sys_info]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Collect Metrics - dm_os_sys_info', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
@@ -1098,11 +1098,11 @@ QuitWithRollback:
 EndSave:
 GO
 
-/****** Object:  Job [(dba) Collect Metrics - NonSqlServer Perfmon Counters]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Job [(dba) Collect Metrics - NonSqlServer Perfmon Counters]    Script Date: 19-Sep-20 12:27:07 AM ******/
 BEGIN TRANSACTION
 DECLARE @ReturnCode INT
 SELECT @ReturnCode = 0
-/****** Object:  JobCategory [Data Collector]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  JobCategory [Data Collector]    Script Date: 19-Sep-20 12:27:07 AM ******/
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'Data Collector' AND category_class=1)
 BEGIN
 EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'Data Collector'
@@ -1124,7 +1124,7 @@ https://docs.microsoft.com/en-us/windows/win32/perfctrs/counterdata?redirectedfr
 		@category_name=N'Data Collector', 
 		@owner_login_name=N'sa', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [truncate table [dbo].[CounterData]]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [truncate table [dbo].[CounterData]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'truncate table [dbo].[CounterData]', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
@@ -1208,7 +1208,7 @@ IF @_errorMessage IS NOT NULL
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [NonSqlServer Perfmon Counters]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [NonSqlServer Perfmon Counters]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'NonSqlServer Perfmon Counters', 
 		@step_id=2, 
 		@cmdexec_success_code=0, 
@@ -1219,10 +1219,10 @@ EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'NonSqlSe
 		@retry_attempts=0, 
 		@retry_interval=0, 
 		@os_run_priority=0, @subsystem=N'CmdExec', 
-		@command=N'powershell.exe -ExecutionPolicy Bypass .  ''D:\MSSQL15.MSSQLSERVER\MSSQL\Perfmon\perfmon-collector-push-to-sqlserver.ps1'';', 
+		@command=N'powershell.exe -ExecutionPolicy Bypass .  ''E:\Perfmon\perfmon-collector-push-to-sqlserver.ps1'';', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Populate dbo.dm_os_performance_counters_nonsql]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Populate dbo.dm_os_performance_counters_nonsql]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Populate dbo.dm_os_performance_counters_nonsql', 
 		@step_id=3, 
 		@cmdexec_success_code=0, 
@@ -1358,11 +1358,11 @@ QuitWithRollback:
 EndSave:
 GO
 
-/****** Object:  Job [(dba) Collect Metrics - Purge Aggregated Tables]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Job [(dba) Collect Metrics - Purge Aggregated Tables]    Script Date: 19-Sep-20 12:27:07 AM ******/
 BEGIN TRANSACTION
 DECLARE @ReturnCode INT
 SELECT @ReturnCode = 0
-/****** Object:  JobCategory [Data Collector]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  JobCategory [Data Collector]    Script Date: 19-Sep-20 12:27:07 AM ******/
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'Data Collector' AND category_class=1)
 BEGIN
 EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'Data Collector'
@@ -1382,7 +1382,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'(dba) Collect Metrics - Purg
 		@category_name=N'Data Collector', 
 		@owner_login_name=N'sa', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_memory_clerks_aggregated]]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_memory_clerks_aggregated]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_memory_clerks_aggregated]', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
@@ -1411,7 +1411,7 @@ end',
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_performance_counters_aggregated_90days]]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_performance_counters_aggregated_90days]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_performance_counters_aggregated_90days]', 
 		@step_id=2, 
 		@cmdexec_success_code=0, 
@@ -1488,7 +1488,7 @@ end',
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_performance_counters_aggregated_1year]]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_performance_counters_aggregated_1year]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_performance_counters_aggregated_1year]', 
 		@step_id=3, 
 		@cmdexec_success_code=0, 
@@ -1517,7 +1517,7 @@ end',
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_performance_counters_nonsql_aggregated_90days]]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_performance_counters_nonsql_aggregated_90days]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_performance_counters_nonsql_aggregated_90days]', 
 		@step_id=4, 
 		@cmdexec_success_code=0, 
@@ -1597,7 +1597,7 @@ end',
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_performance_counters_nonsql_aggregated_1year]]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_performance_counters_nonsql_aggregated_1year]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_performance_counters_nonsql_aggregated_1year]', 
 		@step_id=5, 
 		@cmdexec_success_code=0, 
@@ -1630,7 +1630,7 @@ end',
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_process_memory_aggregated]]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_process_memory_aggregated]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_process_memory_aggregated]', 
 		@step_id=6, 
 		@cmdexec_success_code=0, 
@@ -1659,7 +1659,7 @@ end',
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_ring_buffers_aggregated]]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_ring_buffers_aggregated]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_ring_buffers_aggregated]', 
 		@step_id=7, 
 		@cmdexec_success_code=0, 
@@ -1688,7 +1688,7 @@ end',
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_sys_memory_aggregated]]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_sys_memory_aggregated]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_sys_memory_aggregated]', 
 		@step_id=8, 
 		@cmdexec_success_code=0, 
@@ -1717,7 +1717,7 @@ end',
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[WaitStats_aggregated]]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Purge [dbo].[WaitStats_aggregated]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[WaitStats_aggregated]', 
 		@step_id=9, 
 		@cmdexec_success_code=0, 
@@ -1757,11 +1757,11 @@ QuitWithRollback:
 EndSave:
 GO
 
-/****** Object:  Job [(dba) Collect Metrics - Purge Perfmon Files]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Job [(dba) Collect Metrics - Purge Perfmon Files]    Script Date: 19-Sep-20 12:27:07 AM ******/
 BEGIN TRANSACTION
 DECLARE @ReturnCode INT
 SELECT @ReturnCode = 0
-/****** Object:  JobCategory [Data Collector]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  JobCategory [Data Collector]    Script Date: 19-Sep-20 12:27:07 AM ******/
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'Data Collector' AND category_class=1)
 BEGIN
 EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'Data Collector'
@@ -1781,7 +1781,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'(dba) Collect Metrics - Purg
 		@category_name=N'Data Collector', 
 		@owner_login_name=N'sa', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Delete PerfMon Files]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Delete PerfMon Files]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Delete PerfMon Files', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
@@ -1820,11 +1820,11 @@ QuitWithRollback:
 EndSave:
 GO
 
-/****** Object:  Job [(dba) Collect Metrics - Purge Regular Tables]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Job [(dba) Collect Metrics - Purge Regular Tables]    Script Date: 19-Sep-20 12:27:07 AM ******/
 BEGIN TRANSACTION
 DECLARE @ReturnCode INT
 SELECT @ReturnCode = 0
-/****** Object:  JobCategory [Data Collector]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  JobCategory [Data Collector]    Script Date: 19-Sep-20 12:27:07 AM ******/
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'Data Collector' AND category_class=1)
 BEGIN
 EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'Data Collector'
@@ -1844,7 +1844,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'(dba) Collect Metrics - Purg
 		@category_name=N'Data Collector', 
 		@owner_login_name=N'sa', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_memory_clerks]]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_memory_clerks]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_memory_clerks]', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
@@ -1918,7 +1918,7 @@ end',
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_performance_counters]]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_performance_counters]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_performance_counters]', 
 		@step_id=2, 
 		@cmdexec_success_code=0, 
@@ -1995,7 +1995,7 @@ end',
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_performance_counters_nonsql]]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_performance_counters_nonsql]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_performance_counters_nonsql]', 
 		@step_id=3, 
 		@cmdexec_success_code=0, 
@@ -2080,7 +2080,7 @@ IF EXISTS (select * from sys.objects where object_id = OBJECT_ID(''dbo.dm_os_per
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_process_memory]]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_process_memory]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_process_memory]', 
 		@step_id=4, 
 		@cmdexec_success_code=0, 
@@ -2162,7 +2162,7 @@ end',
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_ring_buffers]]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_ring_buffers]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_ring_buffers]', 
 		@step_id=5, 
 		@cmdexec_success_code=0, 
@@ -2232,7 +2232,7 @@ end',
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_sys_info]]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_sys_info]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_sys_info]', 
 		@step_id=6, 
 		@cmdexec_success_code=0, 
@@ -2261,7 +2261,7 @@ end',
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_sys_memory]]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_sys_memory]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_sys_memory]', 
 		@step_id=7, 
 		@cmdexec_success_code=0, 
@@ -2341,7 +2341,7 @@ end',
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[WaitStats]]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Purge [dbo].[WaitStats]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[WaitStats]', 
 		@step_id=8, 
 		@cmdexec_success_code=0, 
@@ -2426,7 +2426,7 @@ end
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Start job [(dba) Collect Metrics - Purge Aggregated Tables]]    Script Date: 18-Sep-20 9:57:18 PM ******/
+/****** Object:  Step [Start job [(dba) Collect Metrics - Purge Aggregated Tables]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Start job [(dba) Collect Metrics - Purge Aggregated Tables]', 
 		@step_id=9, 
 		@cmdexec_success_code=0, 
@@ -2466,11 +2466,11 @@ QuitWithRollback:
 EndSave:
 GO
 
-/****** Object:  Job [(dba) Collect Metrics - Purge WhoIsActive]    Script Date: 18-Sep-20 9:57:19 PM ******/
+/****** Object:  Job [(dba) Collect Metrics - Purge WhoIsActive]    Script Date: 19-Sep-20 12:27:07 AM ******/
 BEGIN TRANSACTION
 DECLARE @ReturnCode INT
 SELECT @ReturnCode = 0
-/****** Object:  JobCategory [DBA]    Script Date: 18-Sep-20 9:57:19 PM ******/
+/****** Object:  JobCategory [DBA]    Script Date: 19-Sep-20 12:27:07 AM ******/
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'DBA' AND category_class=1)
 BEGIN
 EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'DBA'
@@ -2495,7 +2495,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'(dba) Collect Metrics - Purg
 		@owner_login_name=N'sa', 
 		@notify_email_operator_name=N'DBA', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge-Data-Older-Than-60-Days]    Script Date: 18-Sep-20 9:57:19 PM ******/
+/****** Object:  Step [Purge-Data-Older-Than-60-Days]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge-Data-Older-Than-60-Days', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
@@ -2547,11 +2547,11 @@ QuitWithRollback:
 EndSave:
 GO
 
-/****** Object:  Job [(dba) Collect Metrics - Wait Stats]    Script Date: 18-Sep-20 9:57:19 PM ******/
+/****** Object:  Job [(dba) Collect Metrics - Wait Stats]    Script Date: 19-Sep-20 12:27:07 AM ******/
 BEGIN TRANSACTION
 DECLARE @ReturnCode INT
 SELECT @ReturnCode = 0
-/****** Object:  JobCategory [Data Collector]    Script Date: 18-Sep-20 9:57:19 PM ******/
+/****** Object:  JobCategory [Data Collector]    Script Date: 19-Sep-20 12:27:07 AM ******/
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'Data Collector' AND category_class=1)
 BEGIN
 EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'Data Collector'
@@ -2571,7 +2571,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'(dba) Collect Metrics - Wait
 		@category_name=N'Data Collector', 
 		@owner_login_name=N'sa', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Collect Metrics - Wait Stats]    Script Date: 18-Sep-20 9:57:19 PM ******/
+/****** Object:  Step [Collect Metrics - Wait Stats]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Collect Metrics - Wait Stats', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
@@ -2797,11 +2797,11 @@ QuitWithRollback:
 EndSave:
 GO
 
-/****** Object:  Job [(dba) Collect Metrics - Wait Stats Clearing]    Script Date: 18-Sep-20 9:57:19 PM ******/
+/****** Object:  Job [(dba) Collect Metrics - Wait Stats Clearing]    Script Date: 19-Sep-20 12:27:07 AM ******/
 BEGIN TRANSACTION
 DECLARE @ReturnCode INT
 SELECT @ReturnCode = 0
-/****** Object:  JobCategory [Data Collector]    Script Date: 18-Sep-20 9:57:19 PM ******/
+/****** Object:  JobCategory [Data Collector]    Script Date: 19-Sep-20 12:27:07 AM ******/
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'Data Collector' AND category_class=1)
 BEGIN
 EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'Data Collector'
@@ -2821,7 +2821,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'(dba) Collect Metrics - Wait
 		@category_name=N'Data Collector', 
 		@owner_login_name=N'sa', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Wait Stats Clearing]    Script Date: 18-Sep-20 9:57:19 PM ******/
+/****** Object:  Step [Wait Stats Clearing]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Wait Stats Clearing', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
@@ -2865,11 +2865,11 @@ QuitWithRollback:
 EndSave:
 GO
 
-/****** Object:  Job [(dba) Collect Metrics - WhoIsActive]    Script Date: 18-Sep-20 9:57:19 PM ******/
+/****** Object:  Job [(dba) Collect Metrics - WhoIsActive]    Script Date: 19-Sep-20 12:27:07 AM ******/
 BEGIN TRANSACTION
 DECLARE @ReturnCode INT
 SELECT @ReturnCode = 0
-/****** Object:  JobCategory [Database Maintenance]    Script Date: 18-Sep-20 9:57:19 PM ******/
+/****** Object:  JobCategory [Database Maintenance]    Script Date: 19-Sep-20 12:27:07 AM ******/
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'Database Maintenance' AND category_class=1)
 BEGIN
 EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'Database Maintenance'
@@ -2893,7 +2893,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'(dba) Collect Metrics - WhoI
 		@category_name=N'Database Maintenance', 
 		@owner_login_name=N'sa', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Log activities with [sp_WhoIsActive]]    Script Date: 18-Sep-20 9:57:19 PM ******/
+/****** Object:  Step [Log activities with [sp_WhoIsActive]]    Script Date: 19-Sep-20 12:27:07 AM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Log activities with [sp_WhoIsActive]', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
