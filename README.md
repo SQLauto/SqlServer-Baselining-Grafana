@@ -1,6 +1,6 @@
 # SqlServer-Baselining-Grafana
  
-If you are a developer, or DBA who manages Microsoft SQL Servers, it becames important to understand current load vs usual load when SQL Server is slow. This repository contains scripts that will help you to setup SQL Server baselining and visualizing using Grafana.
+If you are a developer, or DBA who manages Microsoft SQL Servers, it becames important to understand current load vs usual load when SQL Server is slow. This repository contains scripts that will help you to setup baseline on individual SQL Server instances, and then visualize the collected data using Grafana through one Inventory server with Linked Server for individual SQL Server instances.
 
 Navigation
  - Sample Live Grafana Dashboards
@@ -12,7 +12,6 @@ Navigation
    - [Part 02 - Configure Grafana for Visualization on baselined data](#part-02---configure-grafana-for-visualization-on-baselined-data)
 
 ## Live Dashboard - Basic Metrics
-<a href="http://ajaydwivedi.ddns.net:3000/d/Fg8Q_wSMz/monitoring-live?orgId=1&refresh=30s&from=now-30m&to=now" target="_blank">http://ajaydwivedi.ddns.net:3000</a>
 You can visit [http://ajaydwivedi.ddns.net:3000](http://ajaydwivedi.ddns.net:3000/d/Fg8Q_wSMz/monitoring-live?orgId=1&refresh=30s&from=now-30m&to=now) for live dashboard for basic real time monitoring.<br><br>
 ![](https://github.com/imajaydwivedi/Images/blob/master/SqlServer-Baselining-Grafana/SQLDBATools%20_%20Monitoring%20-%20Live.JPG) <br>
 
@@ -32,17 +31,15 @@ Setup of baselining & visualization is divided into 2 parts:-
 - [Part 02 - Configure Grafana for Visualization on baselined data](#part-02-configure-grafana-for-visualization-on-baselined-data)
 
 ### Part 01 - Setup Baselining of SqlServer
-1. Create \[DBA\] database using below script
-https://github.com/imajaydwivedi/SqlServer-Baselining-Grafana/blob/master/DDLs/SCH-DBA-database.sql
-![DDLs/SCH-DBA-database.sql](DDLs/SCH-DBA-database.sql)
+1. Create \[DBA\] database using below script:-<br>
+[DDLs/SCH-DBA-database.sql](DDLs/SCH-DBA-database.sql)
 
-2. Download/Copy below files from path 'https://github.com/imajaydwivedi/SqlServer-Baselining-Grafana/tree/master/NonSql%20Files' to local directory where perfmon data collector files will be generated. Say, E:\Perfmon\ on SQL Server box.
+2. Download/Copy below files from path [NonSql Files](NonSql%20Files) to local directory where perfmon data collector files will be generated. Say, *E:\Perfmon\* on SQL Server box.This directory should have at least 4 gb of size.<br>
 
-This directory should have at least 4 gb of size.
-DBA_PerfMon_NonSQL_Collector_Template.xml
-perfmon-collector-logman.ps1
-perfmon-collector-push-to-sqlserver.ps1
-perfmon-remove-imported-files.ps1
+- DBA_PerfMon_NonSQL_Collector_Template.xml
+- perfmon-collector-logman.ps1
+- perfmon-collector-push-to-sqlserver.ps1
+- perfmon-remove-imported-files.ps1
 
 3. Create required objects in sequential order of scripts as mentioned below:-
 
