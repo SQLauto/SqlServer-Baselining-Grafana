@@ -49,15 +49,14 @@ Setup of baselining & visualization is divided into 2 parts:-
 	 > * [DDLs/SCH-Job-\[\(dba\) Collect Metrics - WhoIsActive\].sql](https://github.com/imajaydwivedi/SqlServer-Baselining-Grafana/blob/master/DDLs/SCH-Job-%5B(dba)%20Collect%20Metrics%20-%20WhoIsActive%5D.sql)
 
 5. Prepare perfmon data collection:-
-   1. Setup Perfmon data collector using downloaded script **perfmon-collector-logman.ps1**. Make sure to open script and change value for variable **$collector_root_directory**  as per Step 2). Save it.<br>
+   1. Setup Perfmon data collector using downloaded script **perfmon-collector-logman.ps1**. Make sure to open script and change value for variable **$collector_root_directory**  as per Step 2). Save it.
       ```Powershell
       # Original line in script
       $collector_root_directory = 'D:\MSSQL15.MSSQLSERVER\MSSQL\Perfmon';
       # Update line as per need
       $collector_root_directory = 'E:\Perfmon';
       ```
-
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Once saved, execute same. This will create Performance Monitor data collector named **DBA**.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Once saved, execute same. This will create Performance Monitor data collector named **DBA**.
 	2. Setup ODBC Data Source for SqlInstance. This should be done only once for each Windows Server box. In case of multiple SQL Server instances, choose one instance as ODBC destination. 
 	
 	Add-OdbcDsn -Name "LocalSqlServer" -DriverName "SQL Server" -DsnType "System" -SetPropertyValue @("Server=localhost", "Trusted_Connection=Yes", "Database=DBA")
