@@ -82,30 +82,19 @@ SELECT OBJECTPROPERTY(OBJECT_ID('dbo.perfmon2local'), 'IsDeterministic')
 go
 
 create or alter function dbo.aggregate_time (@collection_time datetime2, @time_interval_minutes smallint = 10)
-returns datetime2 with schemabinding
+returns table with schemabinding
 as
-begin
-	declare @aggreate_time datetime2;
-	select @aggreate_time = CONVERT(varchar(10),@collection_time,120) +' '+ RIGHT('0' + CAST(DATEPART(HOUR,@collection_time) AS Varchar(2)), 2) + ':' + RIGHT('0' + CAST(DATEPART(MINUTE,@collection_time)/@time_interval_minutes*@time_interval_minutes AS varchar(2)), 2)+ ':00';
-
-	return (@aggreate_time);
-end
+return
+with t_date_string as
+(
+	select [aggregate_time] = CONVERT(varchar(10),@collection_time,120) +' '+ RIGHT('0' + CAST(DATEPART(HOUR,@collection_time) AS Varchar(2)), 2) + ':' + RIGHT('0' + CAST(DATEPART(MINUTE,@collection_time)/@time_interval_minutes*@time_interval_minutes AS varchar(2)), 2)+ ':00'
+)
+select convert(smalldatetime,aggregate_time,21) as aggregate_time from t_date_string
 go
 
 SELECT OBJECTPROPERTY(OBJECT_ID('dbo.aggregate_time'), 'IsDeterministic')
 go
 
-create or alter function dbo.aggregate_time_dummy (@collection_time datetime2, @time_interval_minutes smallint = 10)
-returns table with schemabinding
-as
-return
-(
-	select [aggreate_time] = CONVERT(varchar(10),@collection_time,120) +' '+ RIGHT('0' + CAST(DATEPART(HOUR,@collection_time) AS Varchar(2)), 2) + ':' + RIGHT('0' + CAST(DATEPART(MINUTE,@collection_time)/@time_interval_minutes*@time_interval_minutes AS varchar(2)), 2)+ ':00'
-)
-go
-
-SELECT OBJECTPROPERTY(OBJECT_ID('dbo.aggregate_time_dummy'), 'IsDeterministic')
-go
 
 --	drop function dbo.time2duration
 create or alter function dbo.time2duration (@time varchar(27), @unit varchar(20) = 'second')

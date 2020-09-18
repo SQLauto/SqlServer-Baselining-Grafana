@@ -44,9 +44,9 @@
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
         <FileNode Name="SCH-create-functions.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(local):True</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>(local)</AssociatedConnSrvName>
-          <AssociatedConnUserName />
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:SQL-A:False:verysecretadmin</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>SQL-A</AssociatedConnSrvName>
+          <AssociatedConnUserName>verysecretadmin</AssociatedConnUserName>
           <FullPath>SCH-create-functions.sql</FullPath>
         </FileNode>
         <FileNode Name="SCH-DBA-database.sql">
@@ -62,9 +62,9 @@
           <FullPath>SCH-Job-[(dba) Collect Metrics - WhoIsActive].sql</FullPath>
         </FileNode>
         <FileNode Name="SCH-Jobs-All-[(dba) Collect Metrics].sql">
-          <AssociatedConnectionMoniker />
-          <AssociatedConnSrvName />
-          <AssociatedConnUserName />
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:SQL-A:False:verysecretadmin</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>SQL-A</AssociatedConnSrvName>
+          <AssociatedConnUserName>verysecretadmin</AssociatedConnUserName>
           <FullPath>SCH-Jobs-All-[(dba) Collect Metrics].sql</FullPath>
         </FileNode>
         <FileNode Name="SCH-tables-views.sql">

@@ -25,6 +25,24 @@
           <AssociatedConnUserName />
           <FullPath>dm_os_perfmance_counters.sql</FullPath>
         </FileNode>
+        <FileNode Name="qry-aggregate-job.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(local):True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(local)</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>qry-aggregate-job.sql</FullPath>
+        </FileNode>
+        <FileNode Name="qry-aggregate-sample.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(local):True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(local)</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>qry-aggregate-sample.sql</FullPath>
+        </FileNode>
+        <FileNode Name="qry-find-delete-duplicate.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(local):True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(local)</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>qry-find-delete-duplicate.sql</FullPath>
+        </FileNode>
         <FileNode Name="Wait Time (ms).sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(local):True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>(local)</AssociatedConnSrvName>
