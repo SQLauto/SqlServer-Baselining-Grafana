@@ -48,8 +48,8 @@ Setup of baselining & visualization is divided into 2 parts:-
 4. Create [WhoIsActive](http://whoisactive.com/docs/) capturing using below script. Avoid running commented code that creates agent job.
 	 > * [DDLs/SCH-Job-\[\(dba\) Collect Metrics - WhoIsActive\].sql](https://github.com/imajaydwivedi/SqlServer-Baselining-Grafana/blob/master/DDLs/SCH-Job-%5B(dba)%20Collect%20Metrics%20-%20WhoIsActive%5D.sql)
 
-5. Prepare perfmon data collection:-
-   1. Setup Perfmon data collector using downloaded script **perfmon-collector-logman.ps1**. Make sure to open script and change value for variable **$collector_root_directory**  as per Step 2). Save it.
+5. Prepare perfmon data collection:-<br>
+&nbsp;&nbsp;**a)** Setup Perfmon data collector using downloaded script **perfmon-collector-logman.ps1**. Make sure to open script and change value for variable **$collector_root_directory**  as per Step 2). Save it.
       ```Powershell
       # Original line in script
       $collector_root_directory = 'D:\MSSQL15.MSSQLSERVER\MSSQL\Perfmon';
@@ -57,19 +57,19 @@ Setup of baselining & visualization is divided into 2 parts:-
       $collector_root_directory = 'E:\Perfmon';
       ```
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Once saved, execute same. This will create Performance Monitor data collector named **DBA**.   
-2. Setup ODBC Data Source for SqlInstance. This should be done only once for each Windows Server box. In case of multiple SQL Server instances, choose one instance as ODBC destination.	
+&nbsp;&nbsp;**b)** Setup ODBC Data Source for SqlInstance. This should be done only once for each Windows Server box. In case of multiple SQL Server instances, choose one instance as ODBC destination.
       ```Powershell
       # create dsn for Sql Server instance 'localhost' with windows authentication and default to [DBA] database
       Add-OdbcDsn -Name "LocalSqlServer" -DriverName "SQL Server" -DsnType "System" -SetPropertyValue @("Server=localhost", "Trusted_Connection=Yes", "Database=DBA")
       ```
-3. Push perform data to SqlServer.
-	https://github.com/imajaydwivedi/SqlServer-Baselining-Grafana/blob/master/NonSql Files\perfmon-collector-push-to-sqlserver.ps1
-	
-	Make sure to open script and change below variable values. Save it.
-	
-	$collector_root_directory = 'D:\MSSQL15.MSSQLSERVER\MSSQL\Perfmon'; # Same as step 2.a.
-	$dsn = 'LocalSqlServer'; # Modify if changed the dsn name in step 2.b.
-	$DBAInventory = $env:COMPUTERNAME; # Modify data destination sql instance is different than current host. Typical case of SQL Cluster 
+&nbsp;&nbsp;**c)** Push perform data to SqlServer.
+     > * [NonSql Files/perfmon-collector-push-to-sqlserver.ps1](NonSql Files/perfmon-collector-push-to-sqlserver.ps1)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Make sure to open script and change below variable values. Save it.
+     ```
+     $collector_root_directory = 'D:\MSSQL15.MSSQLSERVER\MSSQL\Perfmon'; # Same as step 2.a.
+     $dsn = 'LocalSqlServer'; # Modify if changed the dsn name in step 2.b.
+     $DBAInventory = $env:COMPUTERNAME; # Modify data destination sql instance is different than current host. Typical case of SQL Cluster.
+     ```
 	
 6. Setup Default Mail profile
 	a) Make sure a public profile is set as 'Default profile' in Database Mail using Profile Security.
