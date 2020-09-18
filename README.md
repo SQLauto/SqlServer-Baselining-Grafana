@@ -4,14 +4,15 @@ If you are a developer, or DBA who manages Microsoft SQL Servers, it becames imp
 
 Navigation
  - Sample Live Grafana Dashboards
-   - [Live Dashboard - Basic Metrics](#live-dashboard-basic-metrics)
-   - [Live Dashboard - Perfmon Counters - Quest Softwares](#live-dashboard-perfmon-counters-quest-softwares)
+   - [Live Dashboard - Basic Metrics](#live-dashboard---basic-metrics)
+   - [Live Dashboard - Perfmon Counters - Quest Softwares](#live-dashboard---perfmon-counters---quest-softwares)
  - [Portal Credentials](#portal-credentials)
  - [How to Setup](#how-to-setup)
-   - [Part 01 - Setup Baselining of SqlServer](#part-01-setup-baselining-of-sqlserver)
-   - [Part 02 - Configure Grafana for Visualization on baselined data](#part-02-configure-grafana-for-visualization-on-baselined-data)
+   - [Part 01 - Setup Baselining of SqlServer](#part-01---setup-baselining-of-sqlserver)
+   - [Part 02 - Configure Grafana for Visualization on baselined data](#part-02---configure-grafana-for-visualization-on-baselined-data)
 
 ## Live Dashboard - Basic Metrics
+<a href="http://ajaydwivedi.ddns.net:3000/d/Fg8Q_wSMz/monitoring-live?orgId=1&refresh=30s&from=now-30m&to=now" target="_blank">http://ajaydwivedi.ddns.net:3000</a>
 You can visit [http://ajaydwivedi.ddns.net:3000](http://ajaydwivedi.ddns.net:3000/d/Fg8Q_wSMz/monitoring-live?orgId=1&refresh=30s&from=now-30m&to=now) for live dashboard for basic real time monitoring.<br><br>
 ![](https://github.com/imajaydwivedi/Images/blob/master/SqlServer-Baselining-Grafana/SQLDBATools%20_%20Monitoring%20-%20Live.JPG) <br>
 
