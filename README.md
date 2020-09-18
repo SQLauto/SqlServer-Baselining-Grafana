@@ -53,11 +53,11 @@ Setup of baselining & visualization is divided into 2 parts:-
 	    > \# Original line in script<br>
 	    > $collector_root_directory = 'D:\MSSQL15.MSSQLSERVER\MSSQL\Perfmon';<br>
 	    > \# Update line as per need<br>
-	    > $collector_root_directory = 'E:\Perfmon';<br><br>
+	    > $collector_root_directory = 'E:\Perfmon';
+
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Once saved, execute same. This will create Performance Monitor data collector named **DBA**.
 	
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Once saved, execute same. This will create Performance Monitor data collector named **DBA**.
-	
-	 2. Setup ODBC Data Source for SqlInstance. This should be done only once for each Windows Server box. In case of multiple SQL Server instances, choose one instance as ODBC destination. 
+	2. Setup ODBC Data Source for SqlInstance. This should be done only once for each Windows Server box. In case of multiple SQL Server instances, choose one instance as ODBC destination. 
 	
 	Add-OdbcDsn -Name "LocalSqlServer" -DriverName "SQL Server" -DsnType "System" -SetPropertyValue @("Server=localhost", "Trusted_Connection=Yes", "Database=DBA")
 	
