@@ -38,26 +38,24 @@ Make sure to change the data and log files path in above script before execution
 
 2. Download/Copy below files from path [NonSql Files](NonSql%20Files) to local directory where perfmon data collector files will be generated. Say, **E:\Perfmon\\** on SQL Server box. *This directory should have at least 4 gb of size*.<br>
 
-> * DBA_PerfMon_NonSQL_Collector_Template.xml
-> * perfmon-collector-logman.ps1
-> * perfmon-collector-push-to-sqlserver.ps1
-> * perfmon-remove-imported-files.ps1
+	> * DBA_PerfMon_NonSQL_Collector_Template.xml
+	> * perfmon-collector-logman.ps1
+	> * perfmon-collector-push-to-sqlserver.ps1
+	> * perfmon-remove-imported-files.ps1
 
 3. Create required objects in *sequential order* of scripts as mentioned below:-
-> a. [DDLs/SCH-tables-views.sql](DDLs/SCH-tables-views.sql)
-> b. [DDLs/SCH-create-functions.sql](DDLs/SCH-create-functions.sql)
-> c. [DDLs/SCH-usp_collect_performance_metrics.sql](DDLs/SCH-usp_collect_performance_metrics.sql)
+	> 1. [DDLs/SCH-tables-views.sql](DDLs/SCH-tables-views.sql)
+	> 2. [DDLs/SCH-create-functions.sql](DDLs/SCH-create-functions.sql)
+	> 3. [DDLs/SCH-usp_collect_performance_metrics.sql](DDLs/SCH-usp_collect_performance_metrics.sql)
 
-4. Create WhoIsActive capturing using below script:-
-https://github.com/imajaydwivedi/SqlServer-Baselining-Grafana/blob/master/DDLs/SCH-Job-[(dba) Collect Metrics - WhoIsActive].sql
-
-Avoid running commented code that creates agent job.
+4. Create [WhoIsActive](http://whoisactive.com/docs/) capturing using below script. Avoid running commented code that creates agent job.
+	> [DDLs/SCH-Job-\[\(dba\) Collect Metrics - WhoIsActive\].sql](https://github.com/imajaydwivedi/SqlServer-Baselining-Grafana/blob/master/DDLs/SCH-Job-%5B(dba)%20Collect%20Metrics%20-%20WhoIsActive%5D.sql)
 
 5. Prepare perfmon data collection:-
-	a. Setup Perfmon data collector
-	https://github.com/imajaydwivedi/SqlServer-Baselining-Grafana/blob/master/NonSql Files\perfmon-collector-logman.ps1
+	1. Setup Perfmon data collector
+		> perfmon-collector-logman.ps1
 	
-	Make sure to open script and change value for variable $collector_root_directory as per Step 2). Save it.
+Make sure to open script and change value for variable $collector_root_directory as per Step 2). Save it.
 	Original line in script
 	$collector_root_directory = 'D:\MSSQL15.MSSQLSERVER\MSSQL\Perfmon';
 	Update line as per need
