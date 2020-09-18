@@ -32,7 +32,7 @@ Setup of baselining & visualization is divided into 2 parts:-
 
 ### Part 01 - Setup Baselining of SqlServer
 1. Create \[DBA\] database using below script:-<br>
-[DDLs/SCH-DBA-database.sql](DDLs/SCH-DBA-database.sql)<br><br>
+> [DDLs/SCH-DBA-database.sql](DDLs/SCH-DBA-database.sql)<br>
 
 Make sure to change the data and log files path in above script before execution. Ideally, you want to put each filegroup file in separate disk.<br>
 
@@ -43,11 +43,10 @@ Make sure to change the data and log files path in above script before execution
 > * perfmon-collector-push-to-sqlserver.ps1
 > * perfmon-remove-imported-files.ps1
 
-3. Create required objects in sequential order of scripts as mentioned below:-
-
-https://github.com/imajaydwivedi/SqlServer-Baselining-Grafana/blob/master/DDLs/SCH-tables-views.sql
-https://github.com/imajaydwivedi/SqlServer-Baselining-Grafana/blob/master/DDLs/SCH-Create-Functions.sql
-https://github.com/imajaydwivedi/SqlServer-Baselining-Grafana/blob/master/DDLs/SCH-usp_collect_performance_metrics.sql
+3. Create required objects in *sequential order* of scripts as mentioned below:-
+> a. [DDLs/SCH-tables-views.sql](DDLs/SCH-tables-views.sql)
+> b. [DDLs/SCH-create-functions.sql](DDLs/SCH-create-functions.sql)
+> c. [DDLs/SCH-usp_collect_performance_metrics.sql](DDLs/SCH-usp_collect_performance_metrics.sql)
 
 4. Create WhoIsActive capturing using below script:-
 https://github.com/imajaydwivedi/SqlServer-Baselining-Grafana/blob/master/DDLs/SCH-Job-[(dba) Collect Metrics - WhoIsActive].sql
