@@ -43,11 +43,11 @@
     </LogicalFolder>
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
-        <FileNode Name="SCH-Create-Functions.sql">
-          <AssociatedConnectionMoniker />
-          <AssociatedConnSrvName />
+        <FileNode Name="SCH-create-functions.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(local):True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(local)</AssociatedConnSrvName>
           <AssociatedConnUserName />
-          <FullPath>SCH-Create-Functions.sql</FullPath>
+          <FullPath>SCH-create-functions.sql</FullPath>
         </FileNode>
         <FileNode Name="SCH-DBA-database.sql">
           <AssociatedConnectionMoniker />
