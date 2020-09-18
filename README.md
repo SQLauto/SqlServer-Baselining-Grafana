@@ -32,14 +32,16 @@ Setup of baselining & visualization is divided into 2 parts:-
 
 ### Part 01 - Setup Baselining of SqlServer
 1. Create \[DBA\] database using below script:-<br>
-[DDLs/SCH-DBA-database.sql](DDLs/SCH-DBA-database.sql)
+[DDLs/SCH-DBA-database.sql](DDLs/SCH-DBA-database.sql)<br><br>
 
-2. Download/Copy below files from path [NonSql Files](NonSql%20Files) to local directory where perfmon data collector files will be generated. Say, *E:\Perfmon\* on SQL Server box.This directory should have at least 4 gb of size.<br>
+Make sure to change the data and log files path in above script before execution. Ideally, you want to put each filegroup file in separate disk.<br>
 
-- DBA_PerfMon_NonSQL_Collector_Template.xml
-- perfmon-collector-logman.ps1
-- perfmon-collector-push-to-sqlserver.ps1
-- perfmon-remove-imported-files.ps1
+2. Download/Copy below files from path [NonSql Files](NonSql%20Files) to local directory where perfmon data collector files will be generated. Say, **E:\Perfmon\\** on SQL Server box. *This directory should have at least 4 gb of size*.<br>
+
+> * DBA_PerfMon_NonSQL_Collector_Template.xml
+> * perfmon-collector-logman.ps1
+> * perfmon-collector-push-to-sqlserver.ps1
+> * perfmon-remove-imported-files.ps1
 
 3. Create required objects in sequential order of scripts as mentioned below:-
 
