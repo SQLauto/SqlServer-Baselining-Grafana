@@ -31,43 +31,37 @@ Setup of baselining & visualization is divided into 2 parts:-
 - [Part 02 - Configure Grafana for Visualization on baselined data](#part-02-configure-grafana-for-visualization-on-baselined-data)
 
 ### Part 01 - Setup Baselining of SqlServer
-1. Create \[DBA\] database using below script:-<br>
-> [DDLs/SCH-DBA-database.sql](DDLs/SCH-DBA-database.sql)<br>
-
-Make sure to change the data and log files path in above script before execution. Ideally, you want to put each filegroup file in separate disk.<br>
+1. **Create \[DBA\] database** using below script. Make sure to change the data and log files path in above script before execution. Ideally, you want to put each filegroup file in separate disk.
+	 > * [DDLs/SCH-DBA-database.sql](DDLs/SCH-DBA-database.sql)<br>
 
 2. Download/Copy below files from path [NonSql Files](NonSql%20Files) to local directory where perfmon data collector files will be generated. Say, **E:\Perfmon\\** on SQL Server box. *This directory should have at least 4 gb of size*.<br>
-
-	> * DBA_PerfMon_NonSQL_Collector_Template.xml
-	> * perfmon-collector-logman.ps1
-	> * perfmon-collector-push-to-sqlserver.ps1
-	> * perfmon-remove-imported-files.ps1
+   > * DBA_PerfMon_NonSQL_Collector_Template.xml
+	 > * perfmon-collector-logman.ps1
+	 > * perfmon-collector-push-to-sqlserver.ps1
+	 > * perfmon-remove-imported-files.ps1
 
 3. Create required objects in *sequential order* of scripts as mentioned below:-
-	> 1. [DDLs/SCH-tables-views.sql](DDLs/SCH-tables-views.sql)
-	> 2. [DDLs/SCH-create-functions.sql](DDLs/SCH-create-functions.sql)
-	> 3. [DDLs/SCH-usp_collect_performance_metrics.sql](DDLs/SCH-usp_collect_performance_metrics.sql)
+	 > 1. [DDLs/SCH-tables-views.sql](DDLs/SCH-tables-views.sql)
+	 > 2. [DDLs/SCH-create-functions.sql](DDLs/SCH-create-functions.sql)
+	 > 3. [DDLs/SCH-usp_collect_performance_metrics.sql](DDLs/SCH-usp_collect_performance_metrics.sql)
 
 4. Create [WhoIsActive](http://whoisactive.com/docs/) capturing using below script. Avoid running commented code that creates agent job.
-	> [DDLs/SCH-Job-\[\(dba\) Collect Metrics - WhoIsActive\].sql](https://github.com/imajaydwivedi/SqlServer-Baselining-Grafana/blob/master/DDLs/SCH-Job-%5B(dba)%20Collect%20Metrics%20-%20WhoIsActive%5D.sql)
+	 > * [DDLs/SCH-Job-\[\(dba\) Collect Metrics - WhoIsActive\].sql](https://github.com/imajaydwivedi/SqlServer-Baselining-Grafana/blob/master/DDLs/SCH-Job-%5B(dba)%20Collect%20Metrics%20-%20WhoIsActive%5D.sql)
 
 5. Prepare perfmon data collection:-
-	1. Setup Perfmon data collector
-		> perfmon-collector-logman.ps1
+	 1. Setup Perfmon data collector using downloaded script **perfmon-collector-logman.ps1**. Make sure to open script and change value for variable **$collector_root_directory**  as per Step 2). Save it.<br>
+	    > \# Original line in script<br>
+	    > $collector_root_directory = 'D:\MSSQL15.MSSQLSERVER\MSSQL\Perfmon';<br>
+	    > \# Update line as per need<br>
+	    > $collector_root_directory = 'E:\Perfmon';<br><br>
 	
-Make sure to open script and change value for variable $collector_root_directory as per Step 2). Save it.
-	Original line in script
-	$collector_root_directory = 'D:\MSSQL15.MSSQLSERVER\MSSQL\Perfmon';
-	Update line as per need
-	$collector_root_directory = 'E:\Perfmon';
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Once saved, execute same. This will create Performance Monitor data collector named **DBA**.
 	
-	Once saved, execute same. This will create Performance Monitor data collector named [DBA].
-	
-	b) Setup ODBC Data Source for SqlInstance. This should be done only once for each Windows Server box. In case of multiple SQL Server instances, choose one instance as ODBC destination. 
+	 2. Setup ODBC Data Source for SqlInstance. This should be done only once for each Windows Server box. In case of multiple SQL Server instances, choose one instance as ODBC destination. 
 	
 	Add-OdbcDsn -Name "LocalSqlServer" -DriverName "SQL Server" -DsnType "System" -SetPropertyValue @("Server=localhost", "Trusted_Connection=Yes", "Database=DBA")
 	
-	c) Push perform data to SqlServer.
+	 3. Push perform data to SqlServer.
 	https://github.com/imajaydwivedi/SqlServer-Baselining-Grafana/blob/master/NonSql Files\perfmon-collector-push-to-sqlserver.ps1
 	
 	Make sure to open script and change below variable values. Save it.
