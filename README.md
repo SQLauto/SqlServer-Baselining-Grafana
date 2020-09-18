@@ -56,12 +56,13 @@ Setup of baselining & visualization is divided into 2 parts:-
       # Update line as per need
       $collector_root_directory = 'E:\Perfmon';
       ```
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Once saved, execute same. This will create Performance Monitor data collector named **DBA**.
-	2. Setup ODBC Data Source for SqlInstance. This should be done only once for each Windows Server box. In case of multiple SQL Server instances, choose one instance as ODBC destination. 
-	
-	Add-OdbcDsn -Name "LocalSqlServer" -DriverName "SQL Server" -DsnType "System" -SetPropertyValue @("Server=localhost", "Trusted_Connection=Yes", "Database=DBA")
-	
-	 3. Push perform data to SqlServer.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Once saved, execute same. This will create Performance Monitor data collector named **DBA**.   
+2. Setup ODBC Data Source for SqlInstance. This should be done only once for each Windows Server box. In case of multiple SQL Server instances, choose one instance as ODBC destination.	
+      ```Powershell
+      # create dsn for Sql Server instance 'localhost' with windows authentication and default to [DBA] database
+      Add-OdbcDsn -Name "LocalSqlServer" -DriverName "SQL Server" -DsnType "System" -SetPropertyValue @("Server=localhost", "Trusted_Connection=Yes", "Database=DBA")
+      ```
+3. Push perform data to SqlServer.
 	https://github.com/imajaydwivedi/SqlServer-Baselining-Grafana/blob/master/NonSql Files\perfmon-collector-push-to-sqlserver.ps1
 	
 	Make sure to open script and change below variable values. Save it.
