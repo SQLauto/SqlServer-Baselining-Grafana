@@ -14,12 +14,12 @@ if OBJECT_ID('DBA.dbo.DisplayToID') is null
 else
 	select a.DisplayString
 	from (
-			select top 1 DisplayString
+			select ROW_NUMBER()over(order by DisplayString desc) row_id, DisplayString
 			from dbo.DisplayToID
 			where DisplayString like '$collector_root_directory%'
-			order by LogStopTime desc
 		 ) as a
-	full outer join (select CAST(NULL AS varchar(1024)) AS DisplayString) as d on 1 = 1;
+	full outer join (select CAST(NULL AS varchar(1024)) AS DisplayString) as d on 1 = 1
+	where row_id = 1;
 "@
 $last_log_file_imported = Invoke-DbaQuery -SqlInstance $DBAInventory -Database $DBA_database -Query $tsql_last_log_file_imported | Select-Object -ExpandProperty DisplayString;
 

@@ -15,6 +15,18 @@
           <ConnectionProtocol>NotSpecified</ConnectionProtocol>
           <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
         </ConnectionNode>
+        <ConnectionNode Name="LOCALHOST:MSI\ajayd">
+          <Created>2020-10-18T21:11:28.7072242+05:30</Created>
+          <Type>SQL</Type>
+          <Server>LOCALHOST</Server>
+          <UserName />
+          <Authentication>Windows Authentication</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
         <ConnectionNode Name="SQL-A:verysecretadmin">
           <Created>2020-09-17T22:43:18.0128969+05:30</Created>
           <Type>SQL</Type>
@@ -50,8 +62,8 @@
           <FullPath>SCH-create-functions.sql</FullPath>
         </FileNode>
         <FileNode Name="SCH-DBA-database.sql">
-          <AssociatedConnectionMoniker />
-          <AssociatedConnSrvName />
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:(local):True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>(local)</AssociatedConnSrvName>
           <AssociatedConnUserName />
           <FullPath>SCH-DBA-database.sql</FullPath>
         </FileNode>
@@ -62,9 +74,9 @@
           <FullPath>SCH-Job-[(dba) Collect Metrics - WhoIsActive].sql</FullPath>
         </FileNode>
         <FileNode Name="SCH-Jobs-All-[(dba) Collect Metrics].sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:SQL-A\V17:False:sa</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>SQL-A\V17</AssociatedConnSrvName>
-          <AssociatedConnUserName>sa</AssociatedConnUserName>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:LOCALHOST:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>LOCALHOST</AssociatedConnSrvName>
+          <AssociatedConnUserName />
           <FullPath>SCH-Jobs-All-[(dba) Collect Metrics].sql</FullPath>
         </FileNode>
         <FileNode Name="SCH-tables-views.sql">

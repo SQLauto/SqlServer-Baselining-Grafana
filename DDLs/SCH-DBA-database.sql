@@ -122,19 +122,3 @@ WHERE ix.data_space_id = fg.data_space_id
 --and tb.name not in ('Queue','QueueDatabase','CommandLog','CounterDetails','CounterData','DisplayToID','IndexProcessing_IndexOptimize')
 --and tb.name like '%aggregated'
 GO
-
-/*
--- Move non-clustered index
-CREATE NONCLUSTERED INDEX [UQ__DisplayT__FA63CFA69449BD52] ON dbo.DisplayToID
-	(DisplayString)
-WITH (DROP_EXISTING = ON)  
-ON [fg_nci];  
-GO
-
--- Move Clustered Index
-CREATE UNIQUE CLUSTERED INDEX UQ__DisplayT__FA63CFA69449BD52 ON dbo.DisplayToID
-	(DisplayString)
-	WITH (DROP_EXISTING = ON)  
-	ON [fg_ci]
-GO
-*/

@@ -1820,11 +1820,11 @@ QuitWithRollback:
 EndSave:
 GO
 
-/****** Object:  Job [(dba) Collect Metrics - Purge Regular Tables]    Script Date: 19-Sep-20 11:39:20 AM ******/
+/****** Object:  Job [(dba) Collect Metrics - Purge Regular Tables]    Script Date: 18-Oct-20 9:10:54 PM ******/
 BEGIN TRANSACTION
 DECLARE @ReturnCode INT
 SELECT @ReturnCode = 0
-/****** Object:  JobCategory [Data Collector]    Script Date: 19-Sep-20 11:39:20 AM ******/
+/****** Object:  JobCategory [Data Collector]    Script Date: 18-Oct-20 9:10:54 PM ******/
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'Data Collector' AND category_class=1)
 BEGIN
 EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'Data Collector'
@@ -1844,7 +1844,7 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'(dba) Collect Metrics - Purg
 		@category_name=N'Data Collector', 
 		@owner_login_name=N'sa', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_memory_clerks]]    Script Date: 19-Sep-20 11:39:20 AM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_memory_clerks]]    Script Date: 18-Oct-20 9:10:54 PM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_memory_clerks]', 
 		@step_id=1, 
 		@cmdexec_success_code=0, 
@@ -1918,7 +1918,7 @@ end',
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_performance_counters]]    Script Date: 19-Sep-20 11:39:20 AM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_performance_counters]]    Script Date: 18-Oct-20 9:10:54 PM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_performance_counters]', 
 		@step_id=2, 
 		@cmdexec_success_code=0, 
@@ -1995,7 +1995,7 @@ end',
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_performance_counters_nonsql]]    Script Date: 19-Sep-20 11:39:20 AM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_performance_counters_nonsql]]    Script Date: 18-Oct-20 9:10:54 PM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_performance_counters_nonsql]', 
 		@step_id=3, 
 		@cmdexec_success_code=0, 
@@ -2080,7 +2080,7 @@ IF EXISTS (select * from sys.objects where object_id = OBJECT_ID(''dbo.dm_os_per
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_process_memory]]    Script Date: 19-Sep-20 11:39:20 AM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_process_memory]]    Script Date: 18-Oct-20 9:10:54 PM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_process_memory]', 
 		@step_id=4, 
 		@cmdexec_success_code=0, 
@@ -2162,7 +2162,7 @@ end',
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_ring_buffers]]    Script Date: 19-Sep-20 11:39:20 AM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_ring_buffers]]    Script Date: 18-Oct-20 9:10:54 PM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_ring_buffers]', 
 		@step_id=5, 
 		@cmdexec_success_code=0, 
@@ -2232,7 +2232,7 @@ end',
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_sys_info]]    Script Date: 19-Sep-20 11:39:20 AM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_sys_info]]    Script Date: 18-Oct-20 9:10:54 PM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_sys_info]', 
 		@step_id=6, 
 		@cmdexec_success_code=0, 
@@ -2261,7 +2261,7 @@ end',
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[dm_os_sys_memory]]    Script Date: 19-Sep-20 11:39:20 AM ******/
+/****** Object:  Step [Purge [dbo].[dm_os_sys_memory]]    Script Date: 18-Oct-20 9:10:54 PM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[dm_os_sys_memory]', 
 		@step_id=7, 
 		@cmdexec_success_code=0, 
@@ -2341,7 +2341,7 @@ end',
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Purge [dbo].[WaitStats]]    Script Date: 19-Sep-20 11:39:20 AM ******/
+/****** Object:  Step [Purge [dbo].[WaitStats]]    Script Date: 18-Oct-20 9:10:54 PM ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[WaitStats]', 
 		@step_id=8, 
 		@cmdexec_success_code=0, 
@@ -2426,9 +2426,25 @@ end
 		@database_name=N'DBA', 
 		@flags=8
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** Object:  Step [Start job [(dba) Collect Metrics - Purge Aggregated Tables]]    Script Date: 19-Sep-20 11:39:20 AM ******/
-EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Start job [(dba) Collect Metrics - Purge Aggregated Tables]', 
+/****** Object:  Step [Purge [dbo].[DisplayToID]]    Script Date: 18-Oct-20 9:10:54 PM ******/
+EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Purge [dbo].[DisplayToID]', 
 		@step_id=9, 
+		@cmdexec_success_code=0, 
+		@on_success_action=3, 
+		@on_success_step_id=0, 
+		@on_fail_action=2, 
+		@on_fail_step_id=0, 
+		@retry_attempts=0, 
+		@retry_interval=0, 
+		@os_run_priority=0, @subsystem=N'TSQL', 
+		@command=N'delete [dbo].[DisplayToID] 
+where LogStartTime <= DATEADD(DAY,-3,GETDATE())', 
+		@database_name=N'DBA', 
+		@flags=8
+IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
+/****** Object:  Step [Start job [(dba) Collect Metrics - Purge Aggregated Tables]]    Script Date: 18-Oct-20 9:10:54 PM ******/
+EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'Start job [(dba) Collect Metrics - Purge Aggregated Tables]', 
+		@step_id=10, 
 		@cmdexec_success_code=0, 
 		@on_success_action=1, 
 		@on_success_step_id=0, 
@@ -2465,6 +2481,7 @@ QuitWithRollback:
     IF (@@TRANCOUNT > 0) ROLLBACK TRANSACTION
 EndSave:
 GO
+
 
 /****** Object:  Job [(dba) Collect Metrics - Purge WhoIsActive]    Script Date: 19-Sep-20 11:39:20 AM ******/
 BEGIN TRANSACTION

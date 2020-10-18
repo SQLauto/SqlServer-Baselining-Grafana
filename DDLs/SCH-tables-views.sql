@@ -321,3 +321,21 @@ alter table [dbo].[dm_os_memory_clerks_aggregated]
 	add constraint pk_dm_os_memory_clerks_aggregated primary key clustered (collection_time,memory_clerk)
 	ON [fg_archive]
 go
+
+
+-- Modify default Indexing of dbo.DisplayToID tables
+alter table dbo.DisplayToID drop constraint PK__DisplayT__15B69B8E7451E31A; -- drop existing pk
+alter table dbo.DisplayToID add constraint PK_DisplayToID primary key nonclustered (GUID) on [fg_nci]; -- create new pk
+
+alter table dbo.DisplayToID drop constraint UQ__DisplayT__FA63CFA6B5BE6B98; -- drop existing uq
+create unique clustered index UQ_DisplayToID__DisplayString on dbo.DisplayToID (DisplayString) on [fg_ci]; -- create new uq
+go
+
+
+USE [DBA]
+GO
+
+CREATE STATISTICS [sts_CounterDetails__ObjectName__CounterName__InstanceName__CounterType] ON [dbo].[CounterDetails]([ObjectName], [CounterName], [InstanceName], [CounterType])
+GO
+CREATE STATISTICS [sts_CounterData__CounterDateTime] ON [dbo].[CounterData]([CounterDateTime])
+GO
