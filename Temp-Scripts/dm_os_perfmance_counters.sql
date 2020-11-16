@@ -10,3 +10,17 @@ SELECT /* -- all performance counters that do not require additional calculation
 --into dbo.dm_os_performance_counters
 FROM sys.dm_os_performance_counters as pc
 WHERE cntr_type in ( 272696576,  272696320)
+
+
+select * 
+from sys.dm_os_performance_counters as pc
+where pc.object_name like 'SQLServer:Resource Pool Stats%'
+	and pc.counter_name in ('')
+
+select *
+from dbo.dm_os_performance_counters as pc
+where pc.object_name = 'SQLServer:Resource Pool Stats'
+	and counter_name in ('CPU usage %')
+
+
+

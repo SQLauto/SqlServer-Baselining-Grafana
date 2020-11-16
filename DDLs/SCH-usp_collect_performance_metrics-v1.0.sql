@@ -159,7 +159,8 @@ begin
 		INSERT dbo.dm_os_performance_counters
 		SELECT /* counter that require Fraction & Base */
 				SYSDATETIME() as collection_time, 
-				server_name = @@SERVERNAME, rtrim(fr.object_name) as object_name, rtrim(fr.counter_name) as counter_name, rtrim(fr.instance_name) as instance_name, cntr_value = case when bs.cntr_value <> 0 then (100*(fr.cntr_value/bs.cntr_value)) else fr.cntr_value end, fr.cntr_type
+				server_name = @@SERVERNAME, rtrim(fr.object_name) as object_name, rtrim(fr.counter_name) as counter_name, rtrim(fr.instance_name) as instance_name, 
+				cntr_value = convert(numeric(20,1),case when bs.cntr_value <> 0 then (100*((fr.cntr_value*1.0)/bs.cntr_value)) else fr.cntr_value end), fr.cntr_type
 				,id = ROW_NUMBER()OVER(ORDER BY SYSDATETIME())
 		FROM sys.dm_os_performance_counters as fr
 		OUTER APPLY
